@@ -1,0 +1,1 @@
+div_on_zero = 'Error : Dividing On Zero.'
