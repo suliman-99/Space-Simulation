@@ -2,35 +2,33 @@
 from vector import *
 
 
-def calc_a(m, f):
+def calc_a(m: float, f: Vector) -> Vector:
     # if mass <= 0:
     #     return div_on_zero
     return f/m
 
 
-def calc_v(v, a, dt):
+def calc_v(v: Vector, a: Vector, dt: float) -> Vector:
     return v + a*dt
 
 
-def calc_p(p, v, a, dt):
+def calc_p(p: Vector, v: Vector, a: Vector, dt: float) -> Vector:
     return p + (v*dt) + (a*((dt**2)/2))
 
 
-def calc_momentum(m, v):
+def calc_momentum(m: float, v: Vector) -> Vector:
     return v*m
 
 
-def calc_kinetic_energy(m: float, v: Vector):
+def calc_kinetic_energy(m: float, v: Vector) -> float:
     return (v.length()**2)*m/2
 
 
-def calc_collision_1_d_v1(m1: float, m2: float, v1: Vector, v2: Vector, cr: float)
+def calc_collision_1_d_v1(m1: float, m2: float, v1: Vector, v2: Vector, cr: float) -> float:
+    return (cr*m2*(v2-v1)+m1*v1+m2*v2)/(m1+m2)
 
 
-return (cr*m2*(v2-v1)+m1*v1+m2*v2)/(m1+m2)
-
-
-def calc_collision_v1(m1: float, m2: float, p1: Vector, p2: Vector, v1: Vector, v2: Vector, cr: float):
+def calc_collision_v1(m1: float, m2: float, p1: Vector, p2: Vector, v1: Vector, v2: Vector, cr: float) -> Vector:
     un = (p1-p2).norm()
     v1n = v1.projection_on(un)
     v2n = v2.projection_on(un)
