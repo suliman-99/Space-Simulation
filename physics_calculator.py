@@ -1,10 +1,10 @@
-# from Errors import *
 from vector import *
 
 
+g = 6.6743 * (10**-11)
+
+
 def calc_a(m: float, f: Vector) -> Vector:
-    # if mass <= 0:
-    #     return div_on_zero
     return f/m
 
 
@@ -39,3 +39,11 @@ def calc_collision_v1(m1: float, m2: float, p1: Vector, p2: Vector, v1: Vector, 
     v1t_last = v1-v1n
     v1_last = v1n_last + v1t_last
     return v1_last
+
+
+def calc_gravity(m1: float, m2: float, d: float) -> float:
+    return g*m1*m2/(d**2)
+
+
+def calc_gravity_force1(m1: float, m2: float, p1: Vector, p2: Vector) -> Vector:
+    return (p2-p1).scale_to(calc_gravity(m1, m2, (p2-p1).length()))
