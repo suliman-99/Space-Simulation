@@ -31,27 +31,27 @@ class Vector:
         #     return div_on_zero
         return Vector(self.x/other, self.y/other, self.z/other)
 
-    def dot(self, other):
+    def dot(self, other) -> float:
         return self.x*other.x+self.y*other.y+self.z*other.z
 
-    def cross(self, other):
+    def cross(self, other) -> Vector:
         return Vector(self.y*other.z-self.z*other.y, self.z*other.x-self.x*other.z, self.x*other.y-self.y*other.x)
 
-    def length(self):
+    def length(self) -> float:
         return sqrt(self.x**2+self.y**2+self.z**2)
 
-    def scale_to(self, new_length):
+    def scale_to(self, new_length) -> Vector:
         var = new_length/self.length()
         return Vector(self.x*var, self.y*var, self.z*var)
 
-    def norm(self):
+    def norm(self) -> Vector:
         return self.scale_to(1)
 
-    def is_normed(self):
+    def is_normed(self) -> bool:
         return self.length() == 1
 
-    def projection_on(self, other):
+    def projection_on(self, other) -> Vector:
         return other*(other.dot(self)/other.length()**2)
 
-    def projection_length_on(self, other):
+    def projection_length_on(self, other) -> float:
         return other.dot(self)/other.length()
