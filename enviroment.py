@@ -13,10 +13,11 @@ class Enviroment:
         self.planets_array: List[Planet] = []
         self.time_speed = 4
         self.frame_rate = 60
+        self.calc_num = 50
 
     def can_add_planet_check(self, pos, radius) -> bool:
         for planet in self.planets_array:
-            if Collision.sphere_with_sphere_overlap_check(pos, planet.pos, radius, planet.radius):
+            if Collision.sphere_with_sphere_overlap_check(pos, planet.pos, radius, planet.radius) < 0:
                 return False
         return True
 
@@ -24,23 +25,24 @@ class Enviroment:
         planet_number = terminal_scanner.scanInt(1, 10, 'Planet Number : ')
         for i in range(planet_number):
             print(f'Planet ( {i+1} ) : ')
-            mass = terminal_scanner.scanInt(0, 1000000000000000000, 'Mass : ')
-            pos_x = terminal_scanner.scanInt(-1000000000000,
-                                             1000000000000, 'Pos ( X ) : ')
-            pos_y = terminal_scanner.scanInt(-1000000000000,
-                                             1000000000000, 'Pos ( Y ) : ')
-            pos_z = terminal_scanner.scanInt(-1000000000000,
-                                             1000000000000, 'Pos ( Z ) : ')
-            pos = Vector(pos_x, pos_y, pos_z)
-            # while True:
-            radius = terminal_scanner.scanInt(1, 1000000000, 'Radius : ')
-            # if self.can_add_planet_check(pos, radius) == 1:
-            #     break
-            v_x = terminal_scanner.scanInt(
+            mass = terminal_scanner.scanFloat(
+                0, 1000000000000000000, 'Mass : ')
+            while True:
+                pos_x = terminal_scanner.scanFloat(-1000000000000,
+                                                   1000000000000, 'Pos ( X ) : ')
+                pos_y = terminal_scanner.scanFloat(-1000000000000,
+                                                   1000000000000, 'Pos ( Y ) : ')
+                pos_z = terminal_scanner.scanFloat(-1000000000000,
+                                                   1000000000000, 'Pos ( Z ) : ')
+                pos = Vector(pos_x, pos_y, pos_z)
+                radius = terminal_scanner.scanFloat(1, 1000000000, 'Radius : ')
+                if self.can_add_planet_check(pos, radius) == 1:
+                    break
+            v_x = terminal_scanner.scanFloat(
                 -1000000000000, 1000000000000, 'Velocity ( X ) : ')
-            v_y = terminal_scanner.scanInt(
+            v_y = terminal_scanner.scanFloat(
                 -1000000000000, 1000000000000, 'Velocity ( Y ) : ')
-            v_z = terminal_scanner.scanInt(
+            v_z = terminal_scanner.scanFloat(
                 -1000000000000, 1000000000000, 'Velocity ( Z ) : ')
             Velocity = Vector(v_x, v_y, v_z)
             self.planets_array.append(Planet(mass, radius, pos, Velocity))
@@ -50,7 +52,10 @@ class Enviroment:
         pass
 
     def collision(self) -> None:
-        pass
+        for i in range(self.planets_array.__len__() - 1):
+            for j in range(self.planets_array.__len__() - i - 1):
+                Collision.proccess_collision(
+                    self.planets_array[i], self.planets_array[i+j+1])
 
     def physics(self, dt: float) -> None:
         self.physics_reset()
@@ -60,6 +65,8 @@ class Enviroment:
     def render(self) -> None:
         for planet in self.planets_array:
             planet.render()
+        sphere(canvas=my_canvas, pos=vector(
+            0, 0, 0), radius=0.5, color=color.red)
 
     def render_update(self) -> None:
         for planet in self.planets_array:
@@ -72,7 +79,8 @@ class Enviroment:
             dt = self.time_speed / self.frame_rate
             self.take_input()
             self.collision()
-            self.physics(dt)
+            for i in range(self.calc_num):
+                self.physics(dt/self.calc_num)
             self.render_update()
 
     def physics_reset(self) -> None:

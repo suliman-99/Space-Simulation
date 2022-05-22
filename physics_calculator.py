@@ -25,20 +25,37 @@ def calc_kinetic_energy(m: float, v: Vector) -> float:
 
 
 def calc_collision_1d_v1(m1: float, m2: float, v1: Vector, v2: Vector, cr: float) -> float:
-    return (cr*m2*(v2-v1)+m1*v1+m2*v2)/(m1+m2)
+    return ((cr*m2*(v2-v1))+(m1*v1)+(m2*v2))/(m1+m2)
 
 
 def calc_collision_v1(m1: float, m2: float, pos1: Vector, pos2: Vector, v1: Vector, v2: Vector, cr: float) -> Vector:
-    un = (pos1-pos2).norm()
-    v1n = v1.projection_on(un)
-    v2n = v2.projection_on(un)
-    v1n_len = v1n.length()
-    v2n_len = v2n.length()
+    un = (pos2-pos1).norm()
+    v1n_len = v1.dot(un)
+    v2n_len = v2.dot(un)
+    if v1n_len < v2n_len:
+        return v1, v2
     v1n_len_last = calc_collision_1d_v1(m1, m2, v1n_len, v2n_len, cr)
+    v2n_len_last = calc_collision_1d_v1(m2, m1, v2n_len, v1n_len, cr)
     v1n_last = un*v1n_len_last
-    v1t_last = v1-v1n
+    v2n_last = un*v2n_len_last
+    v1t_last = v1-v1.projection_on(un)
+    v2t_last = v2-v2.projection_on(un)
     v1_last = v1n_last + v1t_last
-    return v1_last
+    v2_last = v2n_last + v2t_last
+    return v1_last, v2_last
+    # print(pos1)
+    # print(pos2)
+    # print(un)
+    # print(v1)
+    # print(v2)
+    # print(v1n_len)
+    # print(v2n_len)
+    # print('hey hey - This is The Error OoO ')
+    # print(v1n_len_last)
+    # print(v1n_last)
+    # print(v1t_last)
+    # print(v1_last)
+    # print('________________________________________________')
 
 
 def calc_gravity(m1: float, m2: float, d: float) -> float:

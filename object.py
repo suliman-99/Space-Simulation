@@ -4,6 +4,9 @@ from physics_calculator import *
 from vector import *
 
 
+my_canvas = canvas(width=1350, height=600)
+
+
 class Planet:
 
     def __init__(self, mass: float, radius: float, pos: Vector, velocity: Vector) -> Planet:
@@ -15,8 +18,8 @@ class Planet:
         self.force = Vector(0, 0, 0)
 
     def render(self):
-        self.render_object = sphere(
-            pos=self.pos.to_vpython_vector(), radius=self.radius)
+        self.render_object = sphere(canvas=my_canvas,
+                                    pos=self.pos.to_vpython_vector(), radius=self.radius)
 
     def reset_force(self) -> None:
         self.force = Vector(0, 0, 0)
@@ -41,3 +44,14 @@ class Planet:
 
     def update_acceleration(self) -> None:
         self.acceleration = calc_acceleration(self.mass, self.force)
+
+    def set_velocity_from_collision(self, velocity: Vector):
+        self.velocity = velocity
+
+    def set_pos(self, pos: Vector):
+        self.pos = pos
+
+    def add_pos(self, pos: Vector):
+        # print(self.pos)
+        self.pos += pos
+        # print(self.pos)
