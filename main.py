@@ -4,7 +4,7 @@ from enviroment import *
 
 def main():
     enviroment = Enviroment()
-    enviroment.scan()
+    enviroment.scan_from_file()
     enviroment.run()
 
 

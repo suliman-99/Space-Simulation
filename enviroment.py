@@ -7,6 +7,7 @@ from object import *
 from physics_calculator import calc_gravity_force_on_first_object
 from terminal_scaner import terminal_scanner
 
+import os
 
 class Enviroment:
     def __init__(self) -> Enviroment:
@@ -14,6 +15,25 @@ class Enviroment:
         self.time_speed = 4
         self.frame_rate = 60
         self.calc_num = 50
+
+    def scan_from_file(self) -> None:
+        dirname = os.path.dirname   (__file__)
+        inputpath = os.path.join(dirname, 'data\\input.txt')
+        input = open(inputpath, "r")
+        planet_number = int(input.readline())
+        for i in range(planet_number):
+            mass = int(input.readline())
+            pos_x = int(input.readline())
+            pos_y = int(input.readline())
+            pos_z = int(input.readline())
+            pos = Vector(pos_x, pos_y, pos_z)
+            radius = int(input.readline())
+            v_x = int(input.readline())
+            v_y = int(input.readline())
+            v_z = int(input.readline())
+            Velocity = Vector(v_x, v_y, v_z)
+            self.planets_array.append(Planet(mass, radius, pos, Velocity)) 
+        input.close()
 
     def can_add_planet_check(self, pos, radius) -> bool:
         for planet in self.planets_array:
