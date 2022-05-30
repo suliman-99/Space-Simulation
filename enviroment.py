@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import List
 from vpython import *
-from collision import Collision
+from collision import *
 from object import *
 
 from physics_calculator import calc_gravity_force_on_first_object
@@ -17,7 +17,7 @@ class Enviroment:
 
     def can_add_planet_check(self, pos, radius) -> bool:
         for planet in self.planets_array:
-            if Collision.sphere_with_sphere_overlap_check(pos, planet.pos, radius, planet.radius) < 0:
+            if sphere_with_sphere_overlap_check(pos, planet.pos, radius, planet.radius) < 0:
                 return False
         return True
 
@@ -45,32 +45,9 @@ class Enviroment:
             v_z = terminal_scanner.scanFloat(
                 -1000000000000, 1000000000000, 'Velocity ( Z ) : ')
             Velocity = Vector(v_x, v_y, v_z)
-            self.planets_array.append(Planet(mass, radius, pos, Velocity))
+            self.planets_array.append(
+                Planet.small_builder(mass, radius, pos, Velocity))
             print('-----------------------------------------------------------')
-
-    def take_input(self) -> None:
-        pass
-
-    def collision(self) -> None:
-        for i in range(self.planets_array.__len__() - 1):
-            for j in range(self.planets_array.__len__() - i - 1):
-                Collision.proccess_collision(
-                    self.planets_array[i], self.planets_array[i+j+1])
-
-    def physics(self, dt: float) -> None:
-        self.physics_reset()
-        self.physics_calculate(dt)
-        self.physics_apply(dt)
-
-    def render(self) -> None:
-        for planet in self.planets_array:
-            planet.render()
-        sphere(canvas=my_canvas, pos=vector(
-            0, 0, 0), radius=0.5, color=color.red)
-
-    def render_update(self) -> None:
-        for planet in self.planets_array:
-            planet.render_update()
 
     def run(self) -> None:
         self.render()
@@ -82,6 +59,30 @@ class Enviroment:
             for i in range(self.calc_num):
                 self.physics(dt/self.calc_num)
             self.render_update()
+
+    def render(self) -> None:
+        for planet in self.planets_array:
+            planet.render()
+        sphere(canvas=my_canvas, pos=vector(
+            0, 0, 0), radius=0.5, color=color.red)
+
+    def render_update(self) -> None:
+        for planet in self.planets_array:
+            planet.render_update()
+
+    def take_input(self) -> None:
+        pass
+
+    def collision(self) -> None:
+        for i in range(self.planets_array.__len__() - 1):
+            for j in range(self.planets_array.__len__() - i - 1):
+                collision(
+                    self.planets_array[i], self.planets_array[i+j+1])
+
+    def physics(self, dt: float) -> None:
+        self.physics_reset()
+        self.physics_calculate(dt)
+        self.physics_apply(dt)
 
     def physics_reset(self) -> None:
         for planet in self.planets_array:

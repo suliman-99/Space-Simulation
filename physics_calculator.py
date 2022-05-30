@@ -28,7 +28,7 @@ def calc_collision_1d_v1(m1: float, m2: float, v1: Vector, v2: Vector, cr: float
     return ((cr*m2*(v2-v1))+(m1*v1)+(m2*v2))/(m1+m2)
 
 
-def calc_collision_v1(m1: float, m2: float, pos1: Vector, pos2: Vector, v1: Vector, v2: Vector, cr: float) -> Vector:
+def calc_collision(m1: float, m2: float, pos1: Vector, pos2: Vector, v1: Vector, v2: Vector, cr: float) -> Vector:
     un = (pos2-pos1).norm()
     v1n_len = v1.dot(un)
     v2n_len = v2.dot(un)
@@ -43,19 +43,6 @@ def calc_collision_v1(m1: float, m2: float, pos1: Vector, pos2: Vector, v1: Vect
     v1_last = v1n_last + v1t_last
     v2_last = v2n_last + v2t_last
     return v1_last, v2_last
-    # print(pos1)
-    # print(pos2)
-    # print(un)
-    # print(v1)
-    # print(v2)
-    # print(v1n_len)
-    # print(v2n_len)
-    # print('hey hey - This is The Error OoO ')
-    # print(v1n_len_last)
-    # print(v1n_last)
-    # print(v1t_last)
-    # print(v1_last)
-    # print('________________________________________________')
 
 
 def calc_gravity(m1: float, m2: float, d: float) -> float:

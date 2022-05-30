@@ -8,8 +8,8 @@ class terminal_scanner:
         ret = ''
         while not isinstance(ret, int) or ret < low or ret > hight:
             try:
-                ret = int(input("Pleas enter an intger number between " +
-                          str(low) + " and " + str(hight) + " : "))
+                ret = int(input("Enter int between " +
+                          str(low) + " and " + str(hight) + ":"))
             except ValueError:
                 continue
         return ret
@@ -20,7 +20,7 @@ class terminal_scanner:
         ret = ''
         while not isinstance(ret, int):
             try:
-                ret = int(input("Pleas enter an intger number : "))
+                ret = int(input("Enter int:"))
             except ValueError:
                 continue
         return ret
@@ -31,8 +31,8 @@ class terminal_scanner:
         ret = ''
         while not isinstance(ret, float) or ret < low or ret > hight:
             try:
-                ret = float(input("Pleas enter an float number between " +
-                            str(low) + " and " + str(hight) + " : "))
+                ret = float(input("Enter float between " +
+                            str(low) + " and " + str(hight) + ":"))
             except ValueError:
                 continue
         return ret
@@ -43,7 +43,7 @@ class terminal_scanner:
         ret = ''
         while not isinstance(ret, float):
             try:
-                ret = float(input("Pleas enter an float number : "))
+                ret = float(input("Enter float:"))
             except ValueError:
                 continue
         return ret
@@ -52,7 +52,7 @@ class terminal_scanner:
     def scanColor(sentens):
         print(sentens)
         ret = terminal_scanner.scanInt(1, 10, """
-        Pleas choos the color you want : 
+        Select the Color: 
         Red : 1
         Green : 2
         Blue : 3
