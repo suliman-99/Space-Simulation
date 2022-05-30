@@ -1,4 +1,5 @@
 from __future__ import annotations
+import sys
 from typing import List
 from vpython import *
 from collision import *
@@ -6,6 +7,7 @@ from object import *
 from physics_calculator import *
 from terminal_scaner import *
 
+import os
 
 class Enviroment:
     def __init__(self) -> Enviroment:
@@ -14,6 +16,26 @@ class Enviroment:
         self.frame_rate = 20
         self.calc_num = 30
         self.canvas = canvas(width=1350, height=600)
+
+    def scan_from_file(self) -> None:
+        dirname = os.path.dirname   (__file__)
+        bracket = ('\\', '/')[sys.platform == 'linux']
+        inputpath = os.path.join(dirname, f'data{bracket}input.txt')
+        input = open(inputpath, "r")
+        planet_number = int(input.readline())
+        for i in range(planet_number):
+            mass = int(input.readline())
+            pos_x = int(input.readline())
+            pos_y = int(input.readline())
+            pos_z = int(input.readline())
+            pos = Vector(pos_x, pos_y, pos_z)
+            radius = int(input.readline())
+            v_x = int(input.readline())
+            v_y = int(input.readline())
+            v_z = int(input.readline())
+            Velocity = Vector(v_x, v_y, v_z)
+            self.planets_array.append(Planet(mass, radius, pos, Velocity)) 
+        input.close()
 
     def can_add_planet_check(self, pos, radius) -> bool:
         for planet in self.planets_array:
