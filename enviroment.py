@@ -1,6 +1,6 @@
+from __future__ import annotations
 import sys
 import os
-from __future__ import annotations
 from typing import List
 from vpython import *
 from collision import *
@@ -12,15 +12,21 @@ from terminal_scaner import *
 class Enviroment:
     def __init__(self) -> Enviroment:
         self.planets_array: List[Planet] = []
-        self.time_speed = 10
+        self.time_speed = 100
         self.frame_rate = 20
         self.calc_num = 30
         self.canvas = canvas(width=1350, height=600)
 
+    def can_add_planet_check(self, pos, radius) -> bool:
+        for planet in self.planets_array:
+            if sphere_with_sphere_overlap_check(pos, planet.pos, radius, planet.radius) < 0:
+                return False
+        return True
+
     def scan_from_file(self) -> None:
         dirname = os.path.dirname(__file__)
         bracket = ('\\', '/')[sys.platform == 'linux']
-        inputpath = os.path.join(dirname, f'data{bracket}input.txt')
+        inputpath = os.path.join(dirname, f'Demos{bracket}fadi.txt')
         input = open(inputpath, "r")
         planet_number = int(input.readline())
         for i in range(planet_number):
@@ -34,14 +40,9 @@ class Enviroment:
             v_y = int(input.readline())
             v_z = int(input.readline())
             Velocity = Vector(v_x, v_y, v_z)
-            self.planets_array.append(Planet(mass, radius, pos, Velocity))
+            self.planets_array.append(
+                Planet.small_builder(mass, radius, pos, Velocity, self.canvas))
         input.close()
-
-    def can_add_planet_check(self, pos, radius) -> bool:
-        for planet in self.planets_array:
-            if sphere_with_sphere_overlap_check(pos, planet.pos, radius, planet.radius) < 0:
-                return False
-        return True
 
     def scan(self) -> None:
         planet_number = scanInt(1, 10, 'Planet Number : ')
