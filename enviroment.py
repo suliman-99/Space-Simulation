@@ -12,7 +12,7 @@ class Enviroment:
         self.planets_array: List[Planet] = []
         self.time_speed = 10
         self.frame_rate = 20
-        self.calc_num = 50
+        self.calc_num = 30
         self.canvas = canvas(width=1350, height=600)
 
     def can_add_planet_check(self, pos, radius) -> bool:
