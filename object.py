@@ -5,12 +5,9 @@ from physics_calculator import *
 from vector import *
 
 
-my_canvas = canvas(width=1350, height=600)
-
-
 class Planet:
 
-    def __init__(self, mass: float, radius: float, pos: Vector, velocity: Vector, color: Color, friction: float, flexibility: float) -> Planet:
+    def __init__(self, mass: float, radius: float, pos: Vector, velocity: Vector, color: Color, friction: float, flexibility: float, canvas: canvas) -> Planet:
         self.mass = mass
         self.radius = radius
         self.pos = pos
@@ -19,18 +16,19 @@ class Planet:
         self.force = Vector(0, 0, 0)
         self.color = color
         self.friction = friction
-        self, flexibility = flexibility
+        self.flexibility = flexibility
+        self.canvas = canvas
 
     @staticmethod
-    def small_builder(mass: float, radius: float, pos: Vector, velocity: Vector) -> Planet:
-        return Planet(mass, radius, pos, velocity, color.white, 0.1, 0.2)
+    def small_builder(mass: float, radius: float, pos: Vector, velocity: Vector, canvas: canvas) -> Planet:
+        return Planet(mass, radius, pos, velocity, color.white, 0.1, 0.2, canvas)
 
     @staticmethod
-    def complete_builder(mass: float, radius: float, pos: Vector, velocity: Vector, color: Color, friction: float, flexibility: float) -> Planet:
-        return Planet(mass, radius, pos, velocity, color, friction, flexibility)
+    def complete_builder(mass: float, radius: float, pos: Vector, velocity: Vector, color: Color, friction: float, flexibility: float, canvas: canvas) -> Planet:
+        return Planet(mass, radius, pos, velocity, color, friction, flexibility, canvas)
 
     def render(self):
-        self.render_object = sphere(canvas=my_canvas,
+        self.render_object = sphere(canvas=self.canvas,
                                     pos=self.pos.to_vpython_vector(), radius=self.radius, color=self.color)
 
     def render_update(self) -> None:

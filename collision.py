@@ -39,6 +39,6 @@ def collision_correction(planet1: Planet, planet2: Planet) -> None:
 def collision_resolution(planet1: Planet, planet2: Planet) -> None:
     if sphere_with_sphere_overlap_check(planet1.pos, planet2.pos, planet1.radius, planet2.radius) <= 0:
         v1_new, v2_new = calc_collision(
-            planet1.mass, planet2.mass, planet1.pos, planet2.pos, planet1.velocity, planet2.velocity, 0.2)
+            planet1.mass, planet2.mass, planet1.pos, planet2.pos, planet1.velocity, planet2.velocity, max(planet1.flexibility*planet2.flexibility))
         planet1.set_velocity(v1_new)
         planet2.set_velocity(v2_new)

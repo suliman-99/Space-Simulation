@@ -14,6 +14,7 @@ class Enviroment:
         self.time_speed = 4
         self.frame_rate = 60
         self.calc_num = 50
+        self.canvas = canvas(width=1350, height=600)
 
     def can_add_planet_check(self, pos, radius) -> bool:
         for planet in self.planets_array:
@@ -46,7 +47,7 @@ class Enviroment:
                 -1000000000000, 1000000000000, 'Velocity ( Z ) : ')
             Velocity = Vector(v_x, v_y, v_z)
             self.planets_array.append(
-                Planet.small_builder(mass, radius, pos, Velocity))
+                Planet.small_builder(mass, radius, pos, Velocity, self.canvas))
             print('-----------------------------------------------------------')
 
     def run(self) -> None:
@@ -63,7 +64,7 @@ class Enviroment:
     def render(self) -> None:
         for planet in self.planets_array:
             planet.render()
-        sphere(canvas=my_canvas, pos=vector(
+        sphere(canvas=self.canvas, pos=vector(
             0, 0, 0), radius=0.5, color=color.red)
 
     def render_update(self) -> None:
