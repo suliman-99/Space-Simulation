@@ -1,5 +1,4 @@
 from __future__ import annotations
-from vpython import *
 from physics_calculator import *
 from vector import *
 

@@ -1,4 +1,5 @@
 from __future__ import annotations
+import sys
 from typing import List
 from vpython import *
 from collision import Collision
@@ -18,7 +19,8 @@ class Enviroment:
 
     def scan_from_file(self) -> None:
         dirname = os.path.dirname   (__file__)
-        inputpath = os.path.join(dirname, 'data\\input.txt')
+        bracket = ('\\', '/')[sys.platform == 'linux']
+        inputpath = os.path.join(dirname, f'data{bracket}input.txt')
         input = open(inputpath, "r")
         planet_number = int(input.readline())
         for i in range(planet_number):
