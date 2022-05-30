@@ -5,7 +5,7 @@ from collision import *
 from object import *
 
 from physics_calculator import calc_gravity_force_on_first_object
-from terminal_scaner import terminal_scanner
+from terminal_scaner import *
 
 
 class Enviroment:
@@ -23,27 +23,27 @@ class Enviroment:
         return True
 
     def scan(self) -> None:
-        planet_number = terminal_scanner.scanInt(1, 10, 'Planet Number : ')
+        planet_number = scanInt(1, 10, 'Planet Number : ')
         for i in range(planet_number):
             print(f'Planet ( {i+1} ) : ')
-            mass = terminal_scanner.scanFloat(
+            mass = scanFloat(
                 0, 1000000000000000000, 'Mass : ')
             while True:
-                pos_x = terminal_scanner.scanFloat(-1000000000000,
-                                                   1000000000000, 'Pos ( X ) : ')
-                pos_y = terminal_scanner.scanFloat(-1000000000000,
-                                                   1000000000000, 'Pos ( Y ) : ')
-                pos_z = terminal_scanner.scanFloat(-1000000000000,
-                                                   1000000000000, 'Pos ( Z ) : ')
+                pos_x = scanFloat(-1000000000000,
+                                  1000000000000, 'Pos ( X ) : ')
+                pos_y = scanFloat(-1000000000000,
+                                  1000000000000, 'Pos ( Y ) : ')
+                pos_z = scanFloat(-1000000000000,
+                                  1000000000000, 'Pos ( Z ) : ')
                 pos = Vector(pos_x, pos_y, pos_z)
-                radius = terminal_scanner.scanFloat(1, 1000000000, 'Radius : ')
+                radius = scanFloat(1, 1000000000, 'Radius : ')
                 if self.can_add_planet_check(pos, radius) == 1:
                     break
-            v_x = terminal_scanner.scanFloat(
+            v_x = scanFloat(
                 -1000000000000, 1000000000000, 'Velocity ( X ) : ')
-            v_y = terminal_scanner.scanFloat(
+            v_y = scanFloat(
                 -1000000000000, 1000000000000, 'Velocity ( Y ) : ')
-            v_z = terminal_scanner.scanFloat(
+            v_z = scanFloat(
                 -1000000000000, 1000000000000, 'Velocity ( Z ) : ')
             Velocity = Vector(v_x, v_y, v_z)
             self.planets_array.append(
