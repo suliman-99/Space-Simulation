@@ -3,16 +3,15 @@ from typing import List
 from vpython import *
 from collision import *
 from object import *
-
-from physics_calculator import calc_gravity_force_on_first_object
+from physics_calculator import *
 from terminal_scaner import *
 
 
 class Enviroment:
     def __init__(self) -> Enviroment:
         self.planets_array: List[Planet] = []
-        self.time_speed = 4
-        self.frame_rate = 60
+        self.time_speed = 10
+        self.frame_rate = 20
         self.calc_num = 50
         self.canvas = canvas(width=1350, height=600)
 
@@ -56,8 +55,8 @@ class Enviroment:
             rate(self.frame_rate)
             dt = self.time_speed / self.frame_rate
             self.take_input()
-            self.collision()
             for i in range(self.calc_num):
+                self.collision()
                 self.physics(dt/self.calc_num)
             self.render_update()
 
