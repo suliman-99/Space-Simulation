@@ -1,16 +1,12 @@
 from __future__ import annotations
-<<<<<<< HEAD
-from pygame import Color
 from vpython import *
-=======
->>>>>>> 5fefd0f5d70e06ee57809bf4f3fec29e10ee949f
 from physics_calculator import *
 from vector import *
 
 
 class Planet:
 
-    def __init__(self, mass: float, radius: float, pos: Vector, velocity: Vector, color: Color, friction: float, flexibility: float, canvas: canvas) -> Planet:
+    def __init__(self, mass: float, radius: float, pos: Vector, velocity: Vector, color: color, friction: float, flexibility: float, canvas: canvas) -> Planet:
         self.mass = mass
         self.radius = radius
         self.pos = pos
@@ -27,7 +23,7 @@ class Planet:
         return Planet(mass, radius, pos, velocity, color.white, 0.1, 0.2, canvas)
 
     @staticmethod
-    def complete_builder(mass: float, radius: float, pos: Vector, velocity: Vector, color: Color, friction: float, flexibility: float, canvas: canvas) -> Planet:
+    def complete_builder(mass: float, radius: float, pos: Vector, velocity: Vector, color: color, friction: float, flexibility: float, canvas: canvas) -> Planet:
         return Planet(mass, radius, pos, velocity, color, friction, flexibility, canvas)
 
     def render(self):
