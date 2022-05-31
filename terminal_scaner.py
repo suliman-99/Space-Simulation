@@ -1,7 +1,7 @@
 from vpython import *
 
 
-def scanInt(low, hight, sentens):
+def scan_int(low, hight, sentens):
     print(sentens)
     ret = ''
     while not isinstance(ret, int) or ret < low or ret > hight:
@@ -13,7 +13,7 @@ def scanInt(low, hight, sentens):
     return ret
 
 
-def scanInt2(sentens):
+def scan_int2(sentens):
     print(sentens)
     ret = ''
     while not isinstance(ret, int):
@@ -24,7 +24,7 @@ def scanInt2(sentens):
     return ret
 
 
-def scanFloat(low, hight, sentens):
+def scan_float(low, hight, sentens):
     print(sentens)
     ret = ''
     while not isinstance(ret, float) or ret < low or ret > hight:
@@ -36,7 +36,7 @@ def scanFloat(low, hight, sentens):
     return ret
 
 
-def scanFloat2(sentens):
+def scan_float2(sentens):
     print(sentens)
     ret = ''
     while not isinstance(ret, float):
@@ -47,9 +47,9 @@ def scanFloat2(sentens):
     return ret
 
 
-def scanColor(sentens):
+def scan_color(sentens):
     print(sentens)
-    ret = scanInt(1, 10, """
+    ret = scan_int(1, 10, """
     Select the Color: 
     Red : 1
     Green : 2

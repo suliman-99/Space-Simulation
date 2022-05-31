@@ -26,46 +26,46 @@ class Enviroment:
     def scan_from_file(self) -> None:
         dirname = os.path.dirname(__file__)
         bracket = ('\\', '/')[sys.platform == 'linux']
-        inputpath = os.path.join(dirname, f'Demos{bracket}fadi.txt')
+        inputpath = os.path.join(dirname, f'Demos{bracket}Tow Around Each Other (Not Stable).txt')
         input = open(inputpath, "r")
         planet_number = int(input.readline())
         for i in range(planet_number):
-            mass = int(input.readline())
-            pos_x = int(input.readline())
-            pos_y = int(input.readline())
-            pos_z = int(input.readline())
+            mass = float(input.readline())
+            pos_x = float(input.readline())
+            pos_y = float(input.readline())
+            pos_z = float(input.readline())
             pos = Vector(pos_x, pos_y, pos_z)
-            radius = int(input.readline())
-            v_x = int(input.readline())
-            v_y = int(input.readline())
-            v_z = int(input.readline())
+            radius = float(input.readline())
+            v_x = float(input.readline())
+            v_y = float(input.readline())
+            v_z = float(input.readline())
             Velocity = Vector(v_x, v_y, v_z)
             self.planets_array.append(
                 Planet.small_builder(mass, radius, pos, Velocity, self.canvas))
         input.close()
 
     def scan(self) -> None:
-        planet_number = scanInt(1, 10, 'Planet Number : ')
+        planet_number = scan_int(1, 10, 'Planet Number : ')
         for i in range(planet_number):
             print(f'Planet ( {i+1} ) : ')
-            mass = scanFloat(
+            mass = scan_float(
                 0, 1000000000000000000, 'Mass : ')
             while True:
-                pos_x = scanFloat(-1000000000000,
+                pos_x = scan_float(-1000000000000,
                                   1000000000000, 'Pos ( X ) : ')
-                pos_y = scanFloat(-1000000000000,
+                pos_y = scan_float(-1000000000000,
                                   1000000000000, 'Pos ( Y ) : ')
-                pos_z = scanFloat(-1000000000000,
+                pos_z = scan_float(-1000000000000,
                                   1000000000000, 'Pos ( Z ) : ')
                 pos = Vector(pos_x, pos_y, pos_z)
-                radius = scanFloat(1, 1000000000, 'Radius : ')
+                radius = scan_float(1, 1000000000, 'Radius : ')
                 if self.can_add_planet_check(pos, radius) == 1:
                     break
-            v_x = scanFloat(
+            v_x = scan_float(
                 -1000000000000, 1000000000000, 'Velocity ( X ) : ')
-            v_y = scanFloat(
+            v_y = scan_float(
                 -1000000000000, 1000000000000, 'Velocity ( Y ) : ')
-            v_z = scanFloat(
+            v_z = scan_float(
                 -1000000000000, 1000000000000, 'Velocity ( Z ) : ')
             Velocity = Vector(v_x, v_y, v_z)
             self.planets_array.append(
