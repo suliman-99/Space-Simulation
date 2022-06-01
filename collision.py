@@ -19,26 +19,33 @@ def sphere_with_sphere_overlap_check(pos1: Vector, pos2: Vector, radius1: float,
 
 
 def collision(planet1: Planet, planet2: Planet) -> None:
-    collision_correction(planet1, planet2)
-    collision_resolution(planet1, planet2)
+    if sphere_with_sphere_overlap_check(planet1.pos, planet2.pos, planet1.radius, planet2.radius) <= 0:
+        collision_correction(planet1, planet2)
+        collision_resolution(planet1, planet2)
+        friction(planet1, planet2)
 
 
 def collision_correction(planet1: Planet, planet2: Planet) -> None:
-    if sphere_with_sphere_overlap_check(planet1.pos, planet2.pos, planet1.radius, planet2.radius) <= 0:
-        un = planet2.pos - planet1.pos
-        un_len = un.length()
-        correcting = planet1.radius + planet2.radius - un_len
-        c1 = ((-correcting*planet2.mass) /
-              (planet1.mass+planet2.mass))*un.norm()
-        c2 = ((correcting*planet1.mass) /
-              (planet1.mass+planet2.mass))*un.norm()
-        planet1.add_pos(c1)
-        planet2.add_pos(c2)
+    un = planet2.pos - planet1.pos
+    un_len = un.length()
+    correcting = planet1.radius + planet2.radius - un_len
+    c1 = ((-correcting*planet2.mass) /
+          (planet1.mass+planet2.mass))*un.norm()
+    c2 = ((correcting*planet1.mass) /
+          (planet1.mass+planet2.mass))*un.norm()
+    planet1.add_pos(c1)
+    planet2.add_pos(c2)
 
 
 def collision_resolution(planet1: Planet, planet2: Planet) -> None:
-    if sphere_with_sphere_overlap_check(planet1.pos, planet2.pos, planet1.radius, planet2.radius) <= 0:
-        v1_new, v2_new = calc_collision(
-            planet1.mass, planet2.mass, planet1.pos, planet2.pos, planet1.velocity, planet2.velocity, max(planet1.flexibility, planet2.flexibility))
-        planet1.set_velocity(v1_new)
-        planet2.set_velocity(v2_new)
+    v1_new, v2_new = calc_collision(
+        planet1.mass, planet2.mass, planet1.pos, planet2.pos, planet1.velocity, planet2.velocity, max(planet1.flexibility, planet2.flexibility))
+    planet1.set_velocity(v1_new)
+    planet2.set_velocity(v2_new)
+
+
+def friction(planet1: Planet, planet2: Planet) -> None:
+    f1, f2 = calc_friction(planet1.pos, planet2.pos,
+                           planet1.velocity, planet2.velocity, planet1.force, planet2.force, planet1.friction_coefficient, planet2.friction_coefficient)
+    planet1.add_friction_force(f1)
+    planet2.add_friction_force(f2)

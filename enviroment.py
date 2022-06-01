@@ -12,8 +12,8 @@ from terminal_scaner import *
 class Enviroment:
     def __init__(self) -> Enviroment:
         self.planets_array: List[Planet] = []
-        self.time_speed = 100
-        self.frame_rate = 20
+        self.time_speed = 10
+        self.frame_rate = 30
         self.calc_num = 30
         self.canvas = canvas(width=1350, height=600)
 
@@ -26,19 +26,20 @@ class Enviroment:
     def scan_from_file(self) -> None:
         dirname = os.path.dirname(__file__)
         bracket = ('\\', '/')[sys.platform == 'linux']
-        inputpath = os.path.join(dirname, f'Demos{bracket}fadi.txt')
+        inputpath = os.path.join(
+            dirname, f'Demos{bracket}Collision 3 (Recommended).txt')
         input = open(inputpath, "r")
         planet_number = int(input.readline())
         for i in range(planet_number):
-            mass = int(input.readline())
-            pos_x = int(input.readline())
-            pos_y = int(input.readline())
-            pos_z = int(input.readline())
+            mass = float(input.readline())
+            pos_x = float(input.readline())
+            pos_y = float(input.readline())
+            pos_z = float(input.readline())
             pos = Vector(pos_x, pos_y, pos_z)
-            radius = int(input.readline())
-            v_x = int(input.readline())
-            v_y = int(input.readline())
-            v_z = int(input.readline())
+            radius = float(input.readline())
+            v_x = float(input.readline())
+            v_y = float(input.readline())
+            v_z = float(input.readline())
             Velocity = Vector(v_x, v_y, v_z)
             self.planets_array.append(
                 Planet.small_builder(mass, radius, pos, Velocity, self.canvas))
@@ -97,6 +98,8 @@ class Enviroment:
         pass
 
     def collision(self) -> None:
+        for planet in self.planets_array:
+            planet.reset_friction_forces()
         for i in range(self.planets_array.__len__() - 1):
             for j in range(self.planets_array.__len__() - i - 1):
                 collision(
@@ -109,7 +112,7 @@ class Enviroment:
 
     def physics_reset(self) -> None:
         for planet in self.planets_array:
-            planet.reset_force()
+            planet.reset_forces()
 
     def physics_calculate(self, dt: float) -> None:
         for planet in self.planets_array:
