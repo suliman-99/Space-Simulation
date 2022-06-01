@@ -8,6 +8,7 @@ from object import *
 from physics_calculator import *
 from terminal_scaner import *
 
+from gui.config import files
 
 class Enviroment:
     def __init__(self) -> Enviroment:
@@ -23,10 +24,10 @@ class Enviroment:
                 return False
         return True
 
-    def scan_from_file(self) -> None:
+    def scan_from_file(self, file_number) -> None:
         dirname = os.path.dirname(__file__)
         bracket = ('\\', '/')[sys.platform == 'linux']
-        inputpath = os.path.join(dirname, f'Demos{bracket}Tow Around Each Other (Not Stable).txt')
+        inputpath = os.path.join(dirname, f'Demos{bracket}{files[file_number]}.txt')
         input = open(inputpath, "r")
         planet_number = int(input.readline())
         for i in range(planet_number):
