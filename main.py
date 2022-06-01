@@ -1,10 +1,10 @@
 from enviroment import *
-
+from gui.home import HomeScreen
+from testing.debug import debug_config
 
 def main():
-    enviroment = Enviroment()
-    enviroment.scan_from_file()
-    enviroment.run()
+    debug_config()
+    HomeScreen()
 
 
 if __name__ == '__main__':
