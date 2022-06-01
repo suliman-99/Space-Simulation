@@ -13,8 +13,8 @@ from gui.config import files
 class Enviroment:
     def __init__(self) -> Enviroment:
         self.planets_array: List[Planet] = []
-        self.time_speed = 100
-        self.frame_rate = 20
+        self.time_speed = 10
+        self.frame_rate = 30
         self.calc_num = 30
         self.canvas = canvas(width=1350, height=600)
 
@@ -98,6 +98,8 @@ class Enviroment:
         pass
 
     def collision(self) -> None:
+        for planet in self.planets_array:
+            planet.reset_friction_forces()
         for i in range(self.planets_array.__len__() - 1):
             for j in range(self.planets_array.__len__() - i - 1):
                 collision(
@@ -110,7 +112,7 @@ class Enviroment:
 
     def physics_reset(self) -> None:
         for planet in self.planets_array:
-            planet.reset_force()
+            planet.reset_forces()
 
     def physics_calculate(self, dt: float) -> None:
         for planet in self.planets_array:

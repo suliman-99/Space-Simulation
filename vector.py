@@ -15,6 +15,12 @@ class Vector:
     def __str__(self) -> string:
         return f'[{self.x} , {self.y} , {self.z}]'
 
+    def __pos__(self) -> Vector:
+        return Vector(+self.x, +self.y, +self.z)
+
+    def __neg__(self) -> Vector:
+        return Vector(-self.x, -self.y, -self.z)
+
     def __eq__(self, other: Vector) -> bool:
         return self.x == other.x and self.y == other.y and self.z == other.z
 
@@ -61,6 +67,8 @@ class Vector:
         return sqrt(self.x**2+self.y**2+self.z**2)
 
     def scale_to(self, new_length: float) -> Vector:
+        if self.length() == 0:
+            return Vector(0, 0, 0)
         var = new_length/self.length()
         return Vector(self.x*var, self.y*var, self.z*var)
 
@@ -71,9 +79,13 @@ class Vector:
         return self.length() == 1
 
     def projection_on(self, other: Vector) -> Vector:
+        if other.length() == 0:
+            return Vector(0, 0, 0)
         return other*(other.dot(self)/other.length()**2)
 
     def projection_length_on(self, other: Vector) -> float:
+        if other.length() == 0:
+            return Vector(0, 0, 0)
         return other.dot(self)/other.length()
 
     def to_vpython_vector(self) -> vector:

@@ -28,7 +28,7 @@ def calc_collision_1d_v1(m1: float, m2: float, v1: Vector, v2: Vector, cr: float
     return ((cr*m2*(v2-v1))+(m1*v1)+(m2*v2))/(m1+m2)
 
 
-def calc_collision(m1: float, m2: float, pos1: Vector, pos2: Vector, v1: Vector, v2: Vector, cr: float) -> Vector:
+def calc_collision(m1: float, m2: float, pos1: Vector, pos2: Vector, v1: Vector, v2: Vector, cr: float) -> tuple[Vector, Vector]:
     un = (pos2-pos1).norm()
     v1n_len = v1.dot(un)
     v2n_len = v2.dot(un)
@@ -51,3 +51,20 @@ def calc_gravity(m1: float, m2: float, d: float) -> float:
 
 def calc_gravity_force_on_first_object(m1: float, m2: float, pos1: Vector, pos2: Vector) -> Vector:
     return (pos2-pos1).scale_to(calc_gravity(m1, m2, (pos2-pos1).length()))
+
+
+def calc_friction(pos1: Vector, pos2: Vector, velocity1: Vector, velocity2: Vector, force1: Vector, force2: Vector, friction_coefficient1: float, friction_coefficient2: float) -> tuple[Vector, Vector]:
+    un = (pos2 - pos1).norm()
+    dv = velocity1 - velocity2
+    c = friction_coefficient1*friction_coefficient2
+    f1n_length = force1.dot(un)
+    f2n_length = force2.dot(un)
+    if f1n_length <= f2n_length:
+        return Vector(0, 0, 0), Vector(0, 0, 0)
+    fn_length = f1n_length - f2n_length
+    friction_force_length = c * fn_length
+    # if friction_force_length > dv.norm():
+    #     return -dv, +dv
+    f1 = -friction_force_length*dv.norm()
+    f2 = +friction_force_length*dv.norm()
+    return f1, f2
