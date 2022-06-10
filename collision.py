@@ -1,5 +1,3 @@
-from os import unlink
-from vpython import *
 from object import *
 
 # -1 : overlap

@@ -1,12 +1,13 @@
 from __future__ import annotations
-from vpython import *
+
 from physics_calculator import *
 from vector import *
 
 
 class Planet:
 
-    def __init__(self, mass: float, radius: float, pos: Vector, velocity: Vector, color: color, friction_coefficient: float, flexibility: float, canvas: canvas) -> Planet:
+    def __init__(self, mass: float, radius: float, pos: Vector, velocity: Vector, color: color,
+                 friction_coefficient: float, flexibility: float, canvas: canvas) -> None:
         self.mass = mass
         self.radius = radius
         self.pos = pos
@@ -24,7 +25,8 @@ class Planet:
         return Planet(mass, radius, pos, velocity, color.white, 0.5, 0.2, canvas)
 
     @staticmethod
-    def complete_builder(mass: float, radius: float, pos: Vector, velocity: Vector, color: color, friction_coefficient: float, flexibility: float, canvas: canvas) -> Planet:
+    def complete_builder(mass: float, radius: float, pos: Vector, velocity: Vector, color: color,
+                         friction_coefficient: float, flexibility: float, canvas: canvas) -> Planet:
         return Planet(mass, radius, pos, velocity, color, friction_coefficient, flexibility, canvas)
 
     def render(self):
@@ -59,7 +61,7 @@ class Planet:
 
     def update_acceleration(self) -> None:
         self.acceleration = calc_acceleration(
-            self.mass, self.force+self.friction_force)
+            self.mass, self.force + self.friction_force)
 
     def set_acceleration(self, acceleration: Vector):
         self.acceleration = acceleration
