@@ -1,10 +1,10 @@
 from gui.app import TkinterApp
 from gui.screens.home import HomeScreen
-from testing.debug import debug_config
+from testing.debug import enable_debug_mode
 
 
 def main():
-    debug_config()  
+    enable_debug_mode()
     TkinterApp(home=HomeScreen)
 
 

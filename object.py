@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from physics_calculator import *
+from testing.debug import debug_mode
 from vector import *
 
 
@@ -31,7 +32,8 @@ class Planet:
 
     def render(self):
         self.render_object = sphere(canvas=self.canvas,
-                                    pos=self.pos.to_vpython_vector(), radius=self.radius, color=self.color)
+                                    pos=self.pos.to_vpython_vector(), radius=self.radius, color=self.color,
+                                    make_trail=debug_mode)
 
     def render_update(self) -> None:
         self.render_object.pos = self.pos.to_vpython_vector()
