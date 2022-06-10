@@ -1,10 +1,10 @@
-from enviroment import *
-from gui.home import HomeScreen
+from gui.app import TkinterApp
 from testing.debug import debug_config
 
+
 def main():
-    debug_config()
-    HomeScreen()
+    debug_config()  
+    TkinterApp()
 
 
 if __name__ == '__main__':

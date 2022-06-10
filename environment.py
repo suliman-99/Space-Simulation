@@ -1,22 +1,26 @@
 from __future__ import annotations
-import sys
-import os
+
 from typing import List
-from vpython import *
 from collision import *
+from gui.controls import Controls
 from object import *
 from physics_calculator import *
+from file import get_path
 from terminal_scaner import *
 
-from gui.config import files
+from gui.config import COSMOLOGICAL_TIME
 
-class Enviroment:
-    def __init__(self) -> Enviroment:
+
+class Environment:
+    def __init__(self) -> None:
         self.planets_array: List[Planet] = []
-        self.time_speed = 10
+        self.time_speed = COSMOLOGICAL_TIME
         self.frame_rate = 30
         self.calc_num = 30
         self.canvas = canvas(width=1350, height=600)
+
+    def change_time_flow(self, value):
+        self.time_speed = value * COSMOLOGICAL_TIME
 
     def can_add_planet_check(self, pos, radius) -> bool:
         for planet in self.planets_array:
@@ -24,40 +28,41 @@ class Enviroment:
                 return False
         return True
 
-    def scan_from_file(self, file_number) -> None:
-        dirname = os.path.dirname(__file__)
-        bracket = ('\\', '/')[sys.platform == 'linux']
-        inputpath = os.path.join(dirname, f'Demos{bracket}{files[file_number]}.txt')
-        input = open(inputpath, "r")
-        planet_number = int(input.readline())
+    def scan_from_file(self, file) -> None:
+        inputpath = get_path(file)
+        finput = open(inputpath, "r")
+        planet_number = int(finput.readline())
         for i in range(planet_number):
-            mass = float(input.readline())
-            pos_x = float(input.readline())
-            pos_y = float(input.readline())
-            pos_z = float(input.readline())
+            mass = float(finput.readline())
+            pos_x = float(finput.readline())
+            pos_y = float(finput.readline())
+            pos_z = float(finput.readline())
             pos = Vector(pos_x, pos_y, pos_z)
-            radius = float(input.readline())
-            v_x = float(input.readline())
-            v_y = float(input.readline())
-            v_z = float(input.readline())
-            Velocity = Vector(v_x, v_y, v_z)
+            radius = float(finput.readline())
+            v_x = float(finput.readline())
+            v_y = float(finput.readline())
+            v_z = float(finput.readline())
+            velocity = Vector(v_x, v_y, v_z)
             self.planets_array.append(
-                Planet.small_builder(mass, radius, pos, Velocity, self.canvas))
-        input.close()
+                Planet.small_builder(mass, radius, pos, velocity, self.canvas))
+        finput.close()
+
+    def add_planet(self, mass, radius, pos, velocity):
+        self.planets_array.append(Planet.small_builder(mass, radius, pos, velocity, self.canvas))
 
     def scan(self) -> None:
         planet_number = scan_int(1, 10, 'Planet Number : ')
         for i in range(planet_number):
-            print(f'Planet ( {i+1} ) : ')
+            print(f'Planet ( {i + 1} ) : ')
             mass = scan_float(
                 0, 1000000000000000000, 'Mass : ')
             while True:
                 pos_x = scan_float(-1000000000000,
-                                  1000000000000, 'Pos ( X ) : ')
+                                   1000000000000, 'Pos ( X ) : ')
                 pos_y = scan_float(-1000000000000,
-                                  1000000000000, 'Pos ( Y ) : ')
+                                   1000000000000, 'Pos ( Y ) : ')
                 pos_z = scan_float(-1000000000000,
-                                  1000000000000, 'Pos ( Z ) : ')
+                                   1000000000000, 'Pos ( Z ) : ')
                 pos = Vector(pos_x, pos_y, pos_z)
                 radius = scan_float(1, 1000000000, 'Radius : ')
                 if self.can_add_planet_check(pos, radius) == 1:
@@ -68,9 +73,9 @@ class Enviroment:
                 -1000000000000, 1000000000000, 'Velocity ( Y ) : ')
             v_z = scan_float(
                 -1000000000000, 1000000000000, 'Velocity ( Z ) : ')
-            Velocity = Vector(v_x, v_y, v_z)
+            velocity = Vector(v_x, v_y, v_z)
             self.planets_array.append(
-                Planet.small_builder(mass, radius, pos, Velocity, self.canvas))
+                Planet.small_builder(mass, radius, pos, velocity, self.canvas))
             print('-----------------------------------------------------------')
 
     def run(self) -> None:
@@ -81,7 +86,7 @@ class Enviroment:
             self.take_input()
             for i in range(self.calc_num):
                 self.collision()
-                self.physics(dt/self.calc_num)
+                self.physics(dt / self.calc_num)
             self.render_update()
 
     def render(self) -> None:
@@ -89,6 +94,8 @@ class Enviroment:
             planet.render()
         sphere(canvas=self.canvas, pos=vector(
             0, 0, 0), radius=0.5, color=color.red)
+        controls = Controls(self)
+        controls.render()
 
     def render_update(self) -> None:
         for planet in self.planets_array:
@@ -103,7 +110,7 @@ class Enviroment:
         for i in range(self.planets_array.__len__() - 1):
             for j in range(self.planets_array.__len__() - i - 1):
                 collision(
-                    self.planets_array[i], self.planets_array[i+j+1])
+                    self.planets_array[i], self.planets_array[i + j + 1])
 
     def physics(self, dt: float) -> None:
         self.physics_reset()

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from math import *
+
 import string
 from numpy import *
 from vpython import *
@@ -7,7 +7,7 @@ from vpython import *
 
 class Vector:
 
-    def __init__(self, x, y, z,) -> Vector:
+    def __init__(self, x, y, z,) -> None:
         self.x = x
         self.y = y
         self.z = z
