@@ -13,3 +13,6 @@ files = [
 
 MAXIMIZE = '-zoomed'
 FULLSCREEN = '-fullscreen'
+COSMOLOGICAL_TIME = 10
+MAX_SPEED = 20
+MIN_SPEED = -2
