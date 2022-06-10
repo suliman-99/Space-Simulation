@@ -1,7 +1,7 @@
 import logging
 
 from environment import *
-from gui.config import MAX_SPEED, MIN_SPEED
+from resources.config import MAX_SPEED, MIN_SPEED
 
 
 class Controls:

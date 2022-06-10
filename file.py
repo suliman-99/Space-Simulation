@@ -1,7 +1,7 @@
 import os
 import sys
 
-from gui.config import files
+from resources.config import files
 
 
 def get_path(file):

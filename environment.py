@@ -8,7 +8,7 @@ from physics_calculator import *
 from file import get_path
 from terminal_scaner import *
 
-from gui.config import COSMOLOGICAL_TIME
+from resources.config import COSMOLOGICAL_TIME
 
 
 class Environment:
@@ -94,8 +94,8 @@ class Environment:
             planet.render()
         sphere(canvas=self.canvas, pos=vector(
             0, 0, 0), radius=0.5, color=color.red)
-        controls = Controls(self)
-        controls.render()
+        control_panel = Controls(self)
+        control_panel.render()
 
     def render_update(self) -> None:
         for planet in self.planets_array:
