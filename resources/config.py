@@ -1,3 +1,6 @@
+import sys
+
+
 files = [
     'Collision 1_1 (Recommended)',
     'Collision 1',
@@ -11,8 +14,8 @@ files = [
     'Tow Around Each Other (Stable)'
 ]
 
-MAXIMIZE = '-zoomed'
+MAXIMIZE = ('-topmost', '-zoomed')[sys.platform == 'linux']
 FULLSCREEN = '-fullscreen'
-COSMOLOGICAL_TIME = 10
+COSMOLOGICAL_TIME = 0.3
 MAX_SPEED = 20
 MIN_SPEED = -2

@@ -29,7 +29,7 @@ class HomeScreen(TkinterApp):
         self.button4 = Button(self.context.app, text='Run', height=2, width=20, command=self.run)
 
     def read_demo(self):
-        self.filename = filedialog.askopenfilename(filetypes=(("Text Files", "*.txt"),))
+        self.filename = filedialog.askopenfilename(filetypes=(("Text Files", "*.txt"),), initialdir='./demos')
         self.context.environment.scan_from_file(self.filename)
 
     def initial_position(self):
