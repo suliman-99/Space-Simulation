@@ -28,7 +28,6 @@ class TkinterApp:
         background.place(x=0, y=0)
 
         play_sountrack()
-
         home(context)
 
     def get_widgets(self):
