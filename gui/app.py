@@ -1,6 +1,6 @@
 import tkinter
 
-from gui.config import MAXIMIZE
+from resources.config import MAXIMIZE
 from environment import Environment
 from tkinter import Label, PhotoImage, Widget
 
@@ -20,17 +20,16 @@ class AppContext:
 
 
 class TkinterApp:
-    def __init__(self):
-        context = AppContext()
-
-        image = PhotoImage(file='./assets/image/background2.png')
-        background = Label(context.app, image=image, width=2000, height=1100)
-        background.place(x=0, y=0)
-
+    def __init__(self, home):
+        self.context = AppContext()
+        self.set_background()
         play_sountrack()
+        home(self.context)
 
-        from gui.screens.home import HomeScreen
-        HomeScreen(context)
+    def set_background(self):
+        image = PhotoImage(file='./assets/image/background2.png')
+        background = Label(self.context.app, image=image, width=2000, height=1100)
+        background.place(x=0, y=0)
 
     def get_widgets(self):
         widgets = []
