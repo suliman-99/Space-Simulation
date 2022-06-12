@@ -47,6 +47,9 @@ class Environment:
                 Planet.small_builder(mass, radius, pos, velocity, self.canvas))
         finput.close()
 
+    def clear_data(self):
+        self.planets_array.clear()
+
     def add_planet(self, mass, radius, pos, velocity):
         self.planets_array.append(Planet.small_builder(mass, radius, pos, velocity, self.canvas))
 
