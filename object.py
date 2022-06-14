@@ -8,7 +8,7 @@ from vector import *
 class Planet:
 
     def __init__(self, mass: float, radius: float, pos: Vector, velocity: Vector, color: color,
-                 friction_coefficient: float, flexibility: float, canvas: canvas) -> None:
+                 friction_coefficient: float, flexibility: float, canvas: canvas, texture: string) -> None:
         self.mass = mass
         self.radius = radius
         self.pos = pos
@@ -20,6 +20,7 @@ class Planet:
         self.flexibility = flexibility
         self.canvas = canvas
         self.friction_force = Vector(0, 0, 0)
+        self.texture = texture
 
     @staticmethod
     def small_builder(mass: float, radius: float, pos: Vector, velocity: Vector, canvas: canvas) -> Planet:
@@ -27,13 +28,15 @@ class Planet:
 
     @staticmethod
     def complete_builder(mass: float, radius: float, pos: Vector, velocity: Vector, color: color,
-                         friction_coefficient: float, flexibility: float, canvas: canvas) -> Planet:
-        return Planet(mass, radius, pos, velocity, color, friction_coefficient, flexibility, canvas)
+                         friction_coefficient: float, flexibility: float, texture: str, canvas: canvas) -> Planet:
+        return Planet(mass, radius, pos, velocity, color, friction_coefficient, flexibility, canvas, texture)
 
     def render(self):
         self.render_object = sphere(canvas=self.canvas,
                                     pos=self.pos.to_vpython_vector(), radius=self.radius, color=self.color,
-                                    make_trail=debug_mode)
+                                    make_trail=debug_mode,
+                                    texture=f'assets/textures/{self.texture}.jpg'
+                                    )
 
     def render_update(self) -> None:
         self.render_object.pos = self.pos.to_vpython_vector()
