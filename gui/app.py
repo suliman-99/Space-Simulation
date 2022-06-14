@@ -1,4 +1,5 @@
 import tkinter
+from tkinter.ttk import Progressbar
 
 from resources.config import MAXIMIZE
 from environment import Environment
@@ -21,14 +22,14 @@ class AppContext:
 
 class TkinterApp:
     def __init__(self, home):
-        context = AppContext()
+        self.context = AppContext()
 
         image = PhotoImage(file='./assets/image/background2.png')
-        background = Label(context.app, image=image, width=2000, height=1100)
+        background = Label(self.context.app, image=image, width=2000, height=1100)
         background.place(x=0, y=0)
 
         play_sountrack()
-        home(context)
+        home(self.context)
 
     def get_widgets(self):
         widgets = []
@@ -45,3 +46,15 @@ class TkinterApp:
     def pop(self):
         for widget in self.get_widgets():
             widget.destroy()
+
+    def run_environment(self):
+        pb = Progressbar(
+            self.context.app,
+            orient='horizontal',
+            mode='indeterminate',
+            length=280
+        )
+        pb.place(relx=0.5, rely=0.5)
+
+        pb.start()
+        self.context.environment.run()
