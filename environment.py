@@ -83,6 +83,9 @@ class Environment:
             print('-----------------------------------------------------------')
 
     def run(self) -> None:
+        scene.visible = False
+        scene.waitfor("textures")
+        scene.visible = True
         self.render()
         while True:
             rate(self.frame_rate)
