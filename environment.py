@@ -19,7 +19,7 @@ class Environment:
         self.calc_num = 30
         self.canvas = canvas(width=1350, height=600)
 
-    def change_time_flow(self, value):
+    def change_time_flow(self, value) -> None:
         self.time_speed = value * COSMOLOGICAL_TIME
 
     def can_add_planet_check(self, pos, radius) -> bool:
@@ -47,11 +47,14 @@ class Environment:
                 Planet.small_builder(mass, radius, pos, velocity, self.canvas))
         finput.close()
 
-    def clear_data(self):
+    def clear_data(self) -> None:
         self.planets_array.clear()
 
-    def add_planet(self, mass, radius, pos, velocity):
+    def add_planet(self, mass, radius, pos, velocity) -> None:
         self.planets_array.append(Planet.small_builder(mass, radius, pos, velocity, self.canvas))
+
+    def add_planets(self, planets) -> None:
+        self.planets_array.extend(planets)
 
     def scan(self) -> None:
         planet_number = scan_int(1, 10, 'Planet Number : ')

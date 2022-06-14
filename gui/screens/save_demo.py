@@ -1,0 +1,42 @@
+import string
+from tkinter import Button, CENTER, messagebox
+
+from file import save_on_file
+from gui.app import TkinterApp, AppContext
+
+
+class SaveDemoScreen(TkinterApp):
+    def __init__(self, context: AppContext):
+        self.button2 = None
+        self.button1 = None
+        self.pop_button = None
+        self.context = context
+        self.initial_state()
+
+    def initial_state(self):
+        self.initial_widgets()
+        self.initial_position()
+
+    def initial_widgets(self):
+        self.pop_button = Button(self.context.app, text='back', height=1, width=9, command=self.back)
+        self.button1 = Button(self.context.app, text='save simulation', height=2, width=20, command=self.save)
+        self.button2 = Button(self.context.app, text='run simulation', height=2, width=20, command=self.run)
+
+    def initial_position(self):
+        self.pop_button.place(relx=.2, rely=.1, anchor=CENTER)
+        self.button1.place(relx=0.5, rely=0.5, anchor=CENTER)
+        self.button2.place(relx=0.5, rely=0.6, anchor=CENTER)
+
+    def back(self):
+        planet_number = self.context.environment.planets_array.__len__()
+        self.context.environment.planets_array.pop()
+        self.pop()
+        from gui.screens.planet_info import PlanetInfoScreen
+        PlanetInfoScreen(self.context, planet_number, planet_number - 1)
+
+    def save(self):
+        save_on_file(self.context.environment.planets_array)
+        messagebox.showinfo("SUCCESS", "Simulation saved successfuly")
+
+    def run(self):
+        self.run_environment()
