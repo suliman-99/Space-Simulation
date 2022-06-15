@@ -8,19 +8,17 @@ from physics_calculator import *
 from file import get_path
 from terminal_scaner import *
 
-from resources.config import COSMOLOGICAL_TIME
-
 
 class Environment:
     def __init__(self) -> None:
         self.planets_array: List[Planet] = []
-        self.time_speed = COSMOLOGICAL_TIME
+        self.time_speed = 1
         self.frame_rate = 30
         self.calc_num = 30
         self.canvas = canvas(width=1350, height=600)
 
-    def change_time_flow(self, value):
-        self.time_speed = value * COSMOLOGICAL_TIME
+    def change_time_flow(self, value) -> None:
+        self.time_speed = value
 
     def can_add_planet_check(self, pos, radius) -> bool:
         for planet in self.planets_array:
@@ -47,9 +45,15 @@ class Environment:
                 Planet.small_builder(mass, radius, pos, velocity, self.canvas))
         finput.close()
 
-    def add_planet(self, mass, radius, pos, velocity):
+    def clear_data(self) -> None:
+        self.planets_array.clear()
+
+    def add_planet(self, mass, radius, pos, velocity) -> None:
         self.planets_array.append(Planet.small_builder(
             mass, radius, pos, velocity, self.canvas))
+
+    def add_planets(self, planets) -> None:
+        self.planets_array.extend(planets)
 
     def scan(self) -> None:
         planet_number = scan_int(1, 10, 'Planet Number : ')
@@ -80,6 +84,9 @@ class Environment:
             print('-----------------------------------------------------------')
 
     def run(self) -> None:
+        scene.visible = False
+        scene.waitfor("textures")
+        scene.visible = True
         self.render()
         while True:
             rate(self.frame_rate)

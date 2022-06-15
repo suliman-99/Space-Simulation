@@ -7,6 +7,7 @@ from testing.debug import mesure_time
 
 class ChooseDemoScreen(TkinterApp):
     def __init__(self, context: AppContext) -> None:
+        self.pop_button = None
         self.button1 = None
         self.button2 = None
         self.button3 = None
@@ -24,6 +25,7 @@ class ChooseDemoScreen(TkinterApp):
         self.initial_position()
 
     def initial_widgets(self):
+        self.pop_button = Button(self.context.app, text='back', height=1, width=9, command=self.back)
         self.button1 = Button(self.context.app, text='colliosion 1', height=2, width=20,
                               command=lambda: self.run_demo(1))
         self.button2 = Button(self.context.app, text='colliosion 2', height=2, width=20,
@@ -42,14 +44,15 @@ class ChooseDemoScreen(TkinterApp):
                               command=lambda: self.run_demo(7))
 
     def initial_position(self):
-        self.button1.place(relx=0.4, rely=0.4, anchor=CENTER)
-        self.button2.place(relx=0.4, rely=0.5, anchor=CENTER)
-        self.button3.place(relx=0.4, rely=0.6, anchor=CENTER)
-        self.button4.place(relx=0.4, rely=0.7, anchor=CENTER)
-        self.button5.place(relx=0.6, rely=0.4, anchor=CENTER)
-        self.button6.place(relx=0.6, rely=0.5, anchor=CENTER)
-        self.button7.place(relx=0.6, rely=0.6, anchor=CENTER)
-        self.button8.place(relx=0.6, rely=0.7, anchor=CENTER)
+        self.pop_button.place(relx=.2, rely=.1, anchor=CENTER)
+        self.button1.place(relx=.4, rely=.4, anchor=CENTER)
+        self.button2.place(relx=.4, rely=.5, anchor=CENTER)
+        self.button3.place(relx=.4, rely=.6, anchor=CENTER)
+        self.button4.place(relx=.4, rely=.7, anchor=CENTER)
+        self.button5.place(relx=.6, rely=.4, anchor=CENTER)
+        self.button6.place(relx=.6, rely=.5, anchor=CENTER)
+        self.button7.place(relx=.6, rely=.6, anchor=CENTER)
+        self.button8.place(relx=.6, rely=.7, anchor=CENTER)
 
     def run_demo(self, index):
         logging.debug(f'{index}')
@@ -57,9 +60,13 @@ class ChooseDemoScreen(TkinterApp):
         self.run()
 
     def run(self):
-        # self.context.app.destroy()
         # loading = PhotoImage(file = './assets/animation/loading.gif', format="gif -index 2")
         # background = Label(self.context.app, image = loading, width = 2000, height = 1100)
         # background.place(x = 0,y = 0)
         # background.configure()
-        self.context.environment.run()
+        self.run_environment()
+
+    def back(self):
+        self.pop()
+        from gui.screens.home import HomeScreen
+        HomeScreen(self.context)

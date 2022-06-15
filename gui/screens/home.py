@@ -3,14 +3,14 @@ from gui.screens.choose_demo import ChooseDemoScreen
 from tkinter import CENTER, Button, filedialog, messagebox
 
 from gui.screens.planet_number import PlanetNumberScreen
+from gui.screens.run_demo import RunDemoScreen
 
 
 class HomeScreen(TkinterApp):
     def __init__(self, context: AppContext):
-        self.button4 = None
         self.button1 = None
-        self.button3 = None
         self.button2 = None
+        self.button3 = None
         self.context = context
         self.filename = None
 
@@ -23,20 +23,27 @@ class HomeScreen(TkinterApp):
         self.initial_position()
 
     def initial_widgets(self):
-        self.button2 = Button(self.context.app, text='Input Demo Data', height=2, width=20, command=self.input_demo)
-        self.button1 = Button(self.context.app, text='Our Cool Demos', height=2, width=20, command=self.choose_demo)
-        self.button3 = Button(self.context.app, text='Read Demo From File', height=2, width=20, command=self.read_demo)
-        self.button4 = Button(self.context.app, text='Run', height=2, width=20, command=self.run)
+        self.button1 = Button(self.context.app, text='Interesting Simulations', height=2, width=20,
+                              command=self.choose_demo)
+        self.button2 = Button(self.context.app, text='Create new Simulation', height=2, width=20,
+                              command=self.input_demo)
+        self.button3 = Button(self.context.app, text='Simulation From File', height=2, width=20,
+                              command=self.read_demo)
 
     def read_demo(self):
+        self.context.environment.clear_data()
         self.filename = filedialog.askopenfilename(filetypes=(("Text Files", "*.txt"),), initialdir='./demos')
         self.context.environment.scan_from_file(self.filename)
+        if self.filename is not None:
+            self.pop()
+            RunDemoScreen(self.context)
+        else:
+            messagebox.showerror("Error", "No Simulation has been loaded!!")
 
     def initial_position(self):
-        self.button1.place(relx=0.5, rely=0.5, anchor=CENTER)
-        self.button2.place(relx=0.5, rely=0.6, anchor=CENTER)
+        self.button1.place(relx=0.5, rely=0.6, anchor=CENTER)
+        self.button2.place(relx=0.5, rely=0.5, anchor=CENTER)
         self.button3.place(relx=0.5, rely=0.7, anchor=CENTER)
-        self.button4.place(relx=0.5, rely=0.8, anchor=CENTER)
 
     def input_demo(self):
         self.pop()
@@ -47,7 +54,4 @@ class HomeScreen(TkinterApp):
         ChooseDemoScreen(self.context)
 
     def run(self):
-        if self.filename is not None:
-            self.context.environment.run()
-        else:
-            messagebox.showerror("Error", "No Cool Demo has been loaded!!")
+        self.run_environment()
