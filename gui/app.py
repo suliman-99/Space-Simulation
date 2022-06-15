@@ -48,4 +48,5 @@ class TkinterApp:
             widget.destroy()
 
     def run_environment(self):
+        self.context.app.destroy()
         self.context.environment.run()

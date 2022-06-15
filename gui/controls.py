@@ -1,5 +1,6 @@
 import logging
 
+import resources.config
 from environment import *
 from resources.config import MAX_SPEED, MIN_SPEED
 
@@ -23,8 +24,13 @@ class Controls:
             self.button.text = '<b>Resume</b>'
             self.environment.change_time_flow(0)
 
+    def on_cheked(self, value):
+        resources.config.TRAIL_MODE = value.checked
+
     def render(self):
         scene.append_to_caption('\n\n')
         self.button = button(bind=self.on_pressed, text='<b>Pause</b>', color=color.purple)
         scene.append_to_caption('    ')
         slider(bind=self.on_changed, value=1, min=MIN_SPEED, max=MAX_SPEED, length=1200)
+        scene.append_to_caption('\n\n')
+        checkbox(bind=self.on_cheked, text='Show Trail')
