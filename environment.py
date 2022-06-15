@@ -99,8 +99,6 @@ class Environment:
     def render(self) -> None:
         for planet in self.planets_array:
             planet.render()
-        sphere(canvas=self.canvas, pos=vector(
-            0, 0, 0), radius=0.5, color=color.red)
         control_panel = Controls(self)
         control_panel.render()
 

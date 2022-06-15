@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from physics_calculator import *
+from resources.config import TRAIL_MODE
 from vector import *
 
 
@@ -8,6 +9,7 @@ class Planet:
 
     def __init__(self, mass: float, radius: float, pos: Vector, velocity: Vector, color: color,
                  friction_coefficient: float, flexibility: float, canvas: canvas, texture: string = 'sun') -> None:
+        self.render_object = None
         self.mass = mass
         self.radius = radius
         self.pos = pos
@@ -34,18 +36,14 @@ class Planet:
         self.render_object = sphere(canvas=self.canvas,
                                     pos=self.pos.to_vpython_vector(), radius=self.radius, color=self.color,
                                     texture=f'assets/textures/{self.texture}.jpg',
+                                    make_trail=TRAIL_MODE,
                                     velocity=self.velocity.to_vpython_vector()
                                     )
         if self.texture == 'sun':
             self.shine()
-        # self.add_arrow('velocity')
-        self.add_trail()
 
     def add_points_trail(self, freq=3):
         attach_trail(self.render_object, type='points', radius=0.03, pps=freq)
-
-    def add_trail(self):
-        attach_trail(self.render_object)
 
     def add_arrow(self, atterbute):
         attach_arrow(self.render_object, atterbute, scale=3,
@@ -58,6 +56,8 @@ class Planet:
 
     def render_update(self) -> None:
         self.render_object.pos = self.pos.to_vpython_vector()
+        # self.render_object.make_trail = TRAIL_MODE
+        # self.add_arrow('velocity')
 
     def reset_forces(self) -> None:
         self.force = Vector(0, 0, 0)

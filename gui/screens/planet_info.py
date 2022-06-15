@@ -120,7 +120,7 @@ class PlanetInfoScreen(TkinterApp):
             self.error = 'invalid input!!'
             return
         velocity = Vector(x, y, z)
-        self.planet = Planet.complete_builder(mass, radius, pos, velocity, planet_color, 0.5,
+        self.planet = Planet.complete_builder(mass, radius, pos, velocity, planet_color,
                                               flexibility,
                                               self.texture.get(), self.context.environment.canvas)
         self.validate_input()
