@@ -3,7 +3,7 @@ from tkinter.ttk import Progressbar
 
 from resources.config import MAXIMIZE
 from environment import Environment
-from tkinter import Label, PhotoImage, Widget
+from tkinter import Label, PhotoImage, Widget, CENTER
 
 from resources.sound import play_sountrack
 
@@ -48,13 +48,4 @@ class TkinterApp:
             widget.destroy()
 
     def run_environment(self):
-        pb = Progressbar(
-            self.context.app,
-            orient='horizontal',
-            mode='indeterminate',
-            length=280
-        )
-        pb.place(relx=0.5, rely=0.5)
-
-        pb.start()
         self.context.environment.run()

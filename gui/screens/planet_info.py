@@ -11,7 +11,6 @@ from vector import Vector
 
 
 class PlanetInfoScreen(TkinterApp):
-
     def __init__(self, context: AppContext, planet_number: int, current_planet: int):
         self.textures_menu = None
         self.texture_label = None
@@ -28,7 +27,7 @@ class PlanetInfoScreen(TkinterApp):
         self.button2 = None
         self.planet = None
         self.texture = StringVar(self.context.app)
-        self.texture.set('moon')
+        self.texture.set('sun')
         self.planet_number = planet_number
         self.current_planet = current_planet
 

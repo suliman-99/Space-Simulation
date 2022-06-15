@@ -10,7 +10,7 @@ files = [
     'Collision 3 (Recommended)',
     'Collision 4',
     'Collision Type Test',
-    'Earth_Moon',
+    'Earth_Sun',
     'old',
     'Tow Around Each Other (Not Stable)',
     'Tow Around Each Other (Stable)'

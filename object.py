@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import logging
+
 from physics_calculator import *
 from testing.debug import debug_mode
 from vector import *
@@ -8,7 +10,7 @@ from vector import *
 class Planet:
 
     def __init__(self, mass: float, radius: float, pos: Vector, velocity: Vector, color: color,
-                 friction_coefficient: float, flexibility: float, canvas: canvas, texture: string) -> None:
+                 friction_coefficient: float, flexibility: float, canvas: canvas, texture: string = 'sun') -> None:
         self.mass = mass
         self.radius = radius
         self.pos = pos
@@ -35,8 +37,21 @@ class Planet:
         self.render_object = sphere(canvas=self.canvas,
                                     pos=self.pos.to_vpython_vector(), radius=self.radius, color=self.color,
                                     make_trail=debug_mode,
-                                    texture=f'assets/textures/{self.texture}.jpg'
+                                    texture=f'assets/textures/{self.texture}.jpg',
+                                    velocity=self.velocity.to_vpython_vector()
                                     )
+        if self.texture == 'sun':
+            self.shine()
+        # self.add_arrow('velocity')
+
+    def add_arrow(self, atterbute):
+        attach_arrow(self.render_object, atterbute, scale=3,
+                     shaftwidth=0.1, pos=self.render_object.pos)
+
+    def shine(self):
+        attach_light(self.render_object,
+                     offset=vec(self.render_object.pos.x, self.render_object.pos.y, self.render_object.pos.z),
+                     color=color.yellow)
 
     def render_update(self) -> None:
         self.render_object.pos = self.pos.to_vpython_vector()
