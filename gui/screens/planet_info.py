@@ -5,7 +5,7 @@ from vpython import color
 
 from gui.app import TkinterApp, AppContext
 from gui.screens.save_demo import SaveDemoScreen
-from object import Planet
+from planet import Planet
 from resources.config import object_colors, button_colors, FRICTION_COEFFICIENT, FLEXIBILITY, textures
 from vector import Vector
 

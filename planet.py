@@ -1,16 +1,12 @@
 from __future__ import annotations
 
-import logging
-
-from physics_calculator import *
-from testing.debug import debug_mode
 from vector import *
 
 
 class Planet:
 
     def __init__(self, mass: float, radius: float, pos: Vector, velocity: Vector, color: color,
-                 friction_coefficient: float, flexibility: float, canvas: canvas, texture: string = 'sun') -> None:
+                 flexibility: float, canvas: canvas, texture: string = 'sun') -> None:
         self.mass = mass
         self.radius = radius
         self.pos = pos
@@ -18,24 +14,23 @@ class Planet:
         self.acceleration = Vector(0, 0, 0)
         self.force = Vector(0, 0, 0)
         self.color = color
-        self.friction_coefficient = friction_coefficient
         self.flexibility = flexibility
         self.canvas = canvas
         self.texture = texture
 
     @staticmethod
     def small_builder(mass: float, radius: float, pos: Vector, velocity: Vector, canvas: canvas) -> Planet:
-        return Planet(mass, radius, pos, velocity, color.white, 0.5, 0.2, canvas)
+        return Planet(mass, radius, pos, velocity, color.white,0.2, canvas)
 
     @staticmethod
     def complete_builder(mass: float, radius: float, pos: Vector, velocity: Vector, color: color,
-                         friction_coefficient: float, flexibility: float, texture: str, canvas: canvas) -> Planet:
-        return Planet(mass, radius, pos, velocity, color, friction_coefficient, flexibility, canvas, texture)
+                         flexibility: float, texture: str, canvas: canvas) -> Planet:
+        return Planet(mass, radius, pos, velocity, color, flexibility, canvas, texture)
 
     def render(self):
         self.render_object = sphere(canvas=self.canvas,
                                     pos=self.pos.to_vpython_vector(), radius=self.radius, color=self.color,
-                                    make_trail=debug_mode,
+                                    make_trail=False,
                                     texture=f'assets/textures/{self.texture}.jpg',
                                     velocity=self.velocity.to_vpython_vector()
                                     )
@@ -63,19 +58,10 @@ class Planet:
         self.force += force
 
     def update(self, dt: float) -> None:
-        self.update_pos(dt)
-        self.update_velocity(dt)
-        self.update_acceleration()
-
-    def update_pos(self, dt: float) -> None:
-        self.pos = calc_pos(self.pos, self.velocity, self.acceleration, dt)
-
-    def update_velocity(self, dt: float) -> None:
-        self.velocity = calc_velocity(self.velocity, self.acceleration, dt)
-
-    def update_acceleration(self) -> None:
-        self.acceleration = calc_acceleration(
-            self.mass, self.force)
+        self.pos += (self.velocity * dt) + \
+            (self.acceleration * ((dt ** 2) / 2))
+        self.velocity += self.acceleration * dt
+        self.acceleration = self.force / self.mass
 
     def set_acceleration(self, acceleration: Vector):
         self.acceleration = acceleration
