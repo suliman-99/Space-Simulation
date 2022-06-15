@@ -45,9 +45,9 @@ class PlanetInfoScreen(TkinterApp):
         self.add_vector_input_field("planet velocity : ", .5, .55)
         self.add_color_button(.5, .6)
         self.add_texture_button(.5, .65)
-        self.add_input_field("Friction Coefficient", .5, .7)
-        self.enteries[-1].insert(0, f'{FRICTION_COEFFICIENT}')
-        self.add_input_field("Flexibility", .5, .75)
+        # self.add_input_field("Friction Coefficient", .5, .7)
+        # self.enteries[-1].insert(0, f'{FRICTION_COEFFICIENT}')
+        self.add_input_field("Flexibility", .5, .7)
         self.enteries[-1].insert(0, f'{FLEXIBILITY}')
 
     def add_input_field(self, label, x, y):
@@ -115,13 +115,12 @@ class PlanetInfoScreen(TkinterApp):
             y = float(self.enteries[6].get())
             z = float(self.enteries[7].get())
             planet_color = self.object_color
-            friction_coefficient = float(self.enteries[8].get())
-            flexibility = float(self.enteries[9].get())
+            flexibility = float(self.enteries[8].get())
         except ValueError:
             self.error = 'invalid input!!'
             return
         velocity = Vector(x, y, z)
-        self.planet = Planet.complete_builder(mass, radius, pos, velocity, planet_color, friction_coefficient,
+        self.planet = Planet.complete_builder(mass, radius, pos, velocity, planet_color, 0.5,
                                               flexibility,
                                               self.texture.get(), self.context.environment.canvas)
         self.validate_input()
