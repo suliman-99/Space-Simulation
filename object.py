@@ -1,9 +1,6 @@
 from __future__ import annotations
 
-import logging
-
 from physics_calculator import *
-from testing.debug import debug_mode
 from vector import *
 
 
@@ -36,13 +33,19 @@ class Planet:
     def render(self):
         self.render_object = sphere(canvas=self.canvas,
                                     pos=self.pos.to_vpython_vector(), radius=self.radius, color=self.color,
-                                    make_trail=debug_mode,
                                     texture=f'assets/textures/{self.texture}.jpg',
                                     velocity=self.velocity.to_vpython_vector()
                                     )
         if self.texture == 'sun':
             self.shine()
         # self.add_arrow('velocity')
+        self.add_trail()
+
+    def add_points_trail(self, freq=3):
+        attach_trail(self.render_object, type='points', radius=0.03, pps=freq)
+
+    def add_trail(self):
+        attach_trail(self.render_object)
 
     def add_arrow(self, atterbute):
         attach_arrow(self.render_object, atterbute, scale=3,
