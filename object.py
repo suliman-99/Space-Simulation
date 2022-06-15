@@ -19,7 +19,6 @@ class Planet:
         self.friction_coefficient = friction_coefficient
         self.flexibility = flexibility
         self.canvas = canvas
-        self.friction_force = Vector(0, 0, 0)
 
     @staticmethod
     def small_builder(mass: float, radius: float, pos: Vector, velocity: Vector, canvas: canvas) -> Planet:
@@ -41,14 +40,8 @@ class Planet:
     def reset_forces(self) -> None:
         self.force = Vector(0, 0, 0)
 
-    def reset_friction_forces(self) -> None:
-        self.friction_force = Vector(0, 0, 0)
-
     def add_force(self, force: Vector) -> None:
         self.force += force
-
-    def add_friction_force(self, friction_force: float) -> None:
-        self.friction_force += friction_force
 
     def update(self, dt: float) -> None:
         self.update_pos(dt)
@@ -63,7 +56,7 @@ class Planet:
 
     def update_acceleration(self) -> None:
         self.acceleration = calc_acceleration(
-            self.mass, self.force + self.friction_force)
+            self.mass, self.force)
 
     def set_acceleration(self, acceleration: Vector):
         self.acceleration = acceleration

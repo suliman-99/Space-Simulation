@@ -48,7 +48,8 @@ class Environment:
         finput.close()
 
     def add_planet(self, mass, radius, pos, velocity):
-        self.planets_array.append(Planet.small_builder(mass, radius, pos, velocity, self.canvas))
+        self.planets_array.append(Planet.small_builder(
+            mass, radius, pos, velocity, self.canvas))
 
     def scan(self) -> None:
         planet_number = scan_int(1, 10, 'Planet Number : ')
@@ -105,8 +106,6 @@ class Environment:
         pass
 
     def collision(self) -> None:
-        for planet in self.planets_array:
-            planet.reset_friction_forces()
         for i in range(self.planets_array.__len__() - 1):
             for j in range(self.planets_array.__len__() - i - 1):
                 collision(
