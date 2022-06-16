@@ -1,8 +1,5 @@
-import logging
-
-import resources.config
 from vpython import scene, button, slider, checkbox, color
-from resources.config import MAX_SPEED, MIN_SPEED
+import resources.config
 
 
 class Controls:
@@ -12,25 +9,27 @@ class Controls:
         self.slider_value = 1
 
     def on_changed(self, s):
-        logging.debug(f'{s.value}')
         self.slider_value = s.value
-        self.environment.change_time_flow(self.slider_value)
+        self.environment.set_time_speed(self.slider_value)
 
     def on_pressed(self):
         if self.environment.time_speed == 0:
             self.button.text = '<b>Pause</b>'
-            self.environment.change_time_flow(self.slider_value)
+            self.environment.set_time_speed(self.slider_value)
         else:
             self.button.text = '<b>Resume</b>'
-            self.environment.change_time_flow(0)
+            self.environment.set_time_speed(0)
 
     def on_cheked(self, value):
-        resources.config.TRAIL_MODE = value.checked
+        self.environment.set_trail_state(value.checked)
 
     def render(self):
         scene.append_to_caption('\n\n')
-        self.button = button(bind=self.on_pressed, text='<b>Pause</b>', color=color.purple)
+        self.button = button(bind=self.on_pressed,
+                             text='<b>Pause</b>', color=color.purple)
         scene.append_to_caption('    ')
-        slider(bind=self.on_changed, value=1, min=MIN_SPEED, max=MAX_SPEED, length=1200)
+        slider(bind=self.on_changed, value=1,
+               min=resources.config.MIN_SPEED, max=resources.config.MAX_SPEED, length=1200)
         scene.append_to_caption('\n\n')
-        checkbox(bind=self.on_cheked, text='Show Trail')
+        checkbox(bind=self.on_cheked, text='Show Trail',
+                 checked=self.environment.trail_state)

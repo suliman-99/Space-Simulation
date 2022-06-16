@@ -28,7 +28,7 @@ class TkinterApp:
         background = Label(self.context.app, image=image, width=2000, height=1100)
         background.place(x=0, y=0)
 
-        play_sountrack()
+        # play_sountrack()
         home(self.context)
 
     def get_widgets(self):
