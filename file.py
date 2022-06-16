@@ -2,6 +2,9 @@ import os
 import sys
 from typing import IO
 
+from vpython import color, vector
+
+from planet import Planet
 from resources.config import files
 
 
@@ -15,7 +18,7 @@ def get_path(file):
     return fpath
 
 
-def save_on_file(planets_array, output_file: IO):
+def save_on_file(planets_array: list[Planet], output_file: IO):
     planet_number = planets_array.__len__()
     output_file.write(f"{planet_number}\n")
     for planet in planets_array:
@@ -27,4 +30,9 @@ def save_on_file(planets_array, output_file: IO):
         output_file.write(f"{planet.velocity.x}\n")
         output_file.write(f"{planet.velocity.y}\n")
         output_file.write(f"{planet.velocity.z}\n")
+        output_file.write(f"{planet.color._x}\n")
+        output_file.write(f"{planet.color._y}\n")
+        output_file.write(f"{planet.color._z}\n")
+        output_file.write(f"{planet.flexibility}\n")
+        output_file.write(f"{planet.texture}\n")
     output_file.close()
