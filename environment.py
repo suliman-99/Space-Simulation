@@ -53,10 +53,13 @@ class Environment:
     def add_planets(self, planets) -> None:
         self.planets_array.extend(planets)
 
-    def run(self) -> None:
+    def initilize_textures(self):
         scene.visible = False
         scene.waitfor("textures")
         scene.visible = True
+
+    def run(self) -> None:
+        self.initilize_textures()
         self.render()
         while True:
             rate(self.frame_rate)
@@ -100,7 +103,7 @@ class Environment:
     def physics_calculate(self, dt: float) -> None:
         for i in range(self.planets_array.__len__() - 1):
             for j in range(self.planets_array.__len__() - i - 1):
-                apply_gravity()(
+                apply_gravity(
                     self.planets_array[i], self.planets_array[i + j + 1])
 
     def physics_apply(self, dt: float) -> None:

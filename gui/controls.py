@@ -1,7 +1,7 @@
 import logging
 
 import resources.config
-from environment import *
+from vpython import scene, button, slider, checkbox, color
 from resources.config import MAX_SPEED, MIN_SPEED
 
 
