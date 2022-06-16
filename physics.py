@@ -36,10 +36,10 @@ def collision_resolution(planet1: Planet, planet2: Planet) -> None:
         return
     cr = planet1.flexibility * planet2.flexibility
 
-    v1_len_new = ((cr * planet2.mass * (planet2.velocity - planet1.velocity)) + (planet1.mass *
-                  planet1.velocity) + (planet2.mass * planet2.velocity)) / (planet1.mass + planet2.mass)
-    v2_len_new = ((cr * planet1.mass * (planet1.velocity - planet2.velocity)) + (planet1.mass *
-                  planet1.velocity) + (planet2.mass * planet2.velocity)) / (planet1.mass + planet2.mass)
+    v1_len_new = ((cr * planet2.mass * (v2_len - v1_len)) + (planet1.mass *
+                  v1_len) + (planet2.mass * v2_len)) / (planet1.mass + planet2.mass)
+    v2_len_new = ((cr * planet1.mass * (v1_len - v2_len)) + (planet1.mass *
+                  v1_len) + (planet2.mass * v2_len)) / (planet1.mass + planet2.mass)
 
     v1 = un * v1_len
     v2 = un * v2_len
