@@ -1,5 +1,6 @@
 import os
 import sys
+from typing import IO
 
 from resources.config import files
 
@@ -14,20 +15,16 @@ def get_path(file):
     return fpath
 
 
-def save_on_file(planets_array):
+def save_on_file(planets_array, output_file: IO):
     planet_number = planets_array.__len__()
-    dirname = os.path.dirname(__file__)
-    bracket = ('\\', '/')[sys.platform == 'linux']
-    outputpath: str = os.path.join(dirname, f'demos{bracket}last.txt')
-    foutput = open(outputpath, "w")
-    foutput.write(f"{planet_number}\n")
+    output_file.write(f"{planet_number}\n")
     for planet in planets_array:
-        foutput.write(f"{planet.mass}\n")
-        foutput.write(f"{planet.pos.x}\n")
-        foutput.write(f"{planet.pos.y}\n")
-        foutput.write(f"{planet.pos.z}\n")
-        foutput.write(f"{planet.radius}\n")
-        foutput.write(f"{planet.velocity.x}\n")
-        foutput.write(f"{planet.velocity.y}\n")
-        foutput.write(f"{planet.velocity.z}\n")
-    foutput.close()
+        output_file.write(f"{planet.mass}\n")
+        output_file.write(f"{planet.pos.x}\n")
+        output_file.write(f"{planet.pos.y}\n")
+        output_file.write(f"{planet.pos.z}\n")
+        output_file.write(f"{planet.radius}\n")
+        output_file.write(f"{planet.velocity.x}\n")
+        output_file.write(f"{planet.velocity.y}\n")
+        output_file.write(f"{planet.velocity.z}\n")
+    output_file.close()

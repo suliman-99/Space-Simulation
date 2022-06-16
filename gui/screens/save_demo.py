@@ -1,5 +1,5 @@
 import string
-from tkinter import Button, CENTER, messagebox
+from tkinter import Button, CENTER, messagebox, filedialog
 
 from file import save_on_file
 from gui.app import TkinterApp, AppContext
@@ -35,7 +35,8 @@ class SaveDemoScreen(TkinterApp):
         PlanetInfoScreen(self.context, planet_number, planet_number - 1)
 
     def save(self):
-        save_on_file(self.context.environment.planets_array)
+        output_file = filedialog.asksaveasfile(filetypes=(("Text Files", "*.txt"),), initialdir='./demos')
+        save_on_file(self.context.environment.planets_array, output_file)
         messagebox.showinfo("SUCCESS", "Simulation saved successfuly")
 
     def run(self):
