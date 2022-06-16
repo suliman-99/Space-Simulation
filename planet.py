@@ -5,7 +5,7 @@ from vector import *
 class Planet:
 
     def __init__(self, mass: float, radius: float, pos: Vector, velocity: Vector, color: color,
-                 flexibility: float, canvas: canvas, texture: string = 'sun') -> None:
+                 flexibility: float, texture: string, canvas: canvas) -> None:
         self.render_object = None
         self.mass = mass
         self.radius = radius
@@ -17,15 +17,6 @@ class Planet:
         self.flexibility = flexibility
         self.canvas = canvas
         self.texture = texture
-
-    @staticmethod
-    def small_builder(mass: float, radius: float, pos: Vector, velocity: Vector, canvas: canvas) -> Planet:
-        return Planet(mass, radius, pos, velocity, color.white, 0.2, canvas)
-
-    @staticmethod
-    def complete_builder(mass: float, radius: float, pos: Vector, velocity: Vector, color: color,
-                         flexibility: float, texture: str, canvas: canvas) -> Planet:
-        return Planet(mass, radius, pos, velocity, color, flexibility, canvas, texture)
 
     def render(self):
         self.render_object = sphere(canvas=self.canvas,

@@ -31,8 +31,8 @@ class HomeScreen(TkinterApp):
                               command=self.read_demo)
 
     def read_demo(self):
-        self.context.environment.clear_data()
-        self.filename = filedialog.askopenfilename(filetypes=(("Text Files", "*.txt"),), initialdir='./demos')
+        self.filename = filedialog.askopenfilename(
+            filetypes=(("Text Files", "*.txt"),), initialdir='./demos')
         self.context.environment.scan_from_file(self.filename)
         if self.filename is not None:
             self.pop()

@@ -30,6 +30,7 @@ class Environment:
         return True
 
     def scan_from_file(self, file) -> None:
+        self.planets_array.clear()
         inputpath = get_path(file)
         finput = open(inputpath, "r")
         planet_number = int(finput.readline())
@@ -45,19 +46,11 @@ class Environment:
             v_z = float(finput.readline())
             velocity = Vector(v_x, v_y, v_z)
             self.planets_array.append(
-                Planet.small_builder(mass, radius, pos, velocity, self.canvas))
+                Planet(mass, radius, pos, velocity, color.white, 0.2, 'sun', self.canvas))
         finput.close()
 
-    def clear_data(self) -> None:
-        self.planets_array.clear()
-
-    def initilize_textures(self):
-        scene.visible = False
-        scene.waitfor("textures")
-        scene.visible = True
-
     def run(self) -> None:
-        self.initilize_textures()
+        initilize_textures()
         self.render()
         while True:
             rate(self.frame_rate)
@@ -71,8 +64,6 @@ class Environment:
     def render(self) -> None:
         for planet in self.planets_array:
             planet.render()
-        # sphere(canvas=self.canvas, pos=vector(
-        #     0, 0, 0), radius=0.5, color=color.red)
         control_panel = Controls(self)
         control_panel.render()
 
@@ -107,3 +98,9 @@ class Environment:
     def physics_apply(self, dt: float) -> None:
         for planet in self.planets_array:
             planet.update(dt)
+
+
+def initilize_textures():
+    scene.visible = False
+    scene.waitfor("textures")
+    scene.visible = True
