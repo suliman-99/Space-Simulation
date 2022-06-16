@@ -54,6 +54,4 @@ MAXIMIZE = ('-topmost', '-zoomed')[sys.platform == 'linux']
 FULLSCREEN = '-fullscreen'
 MAX_SPEED = 50
 MIN_SPEED = -2
-FRICTION_COEFFICIENT: float = 0.5
 FLEXIBILITY: float = 0.2
-TRAIL_MODE = True

@@ -6,7 +6,7 @@ from vpython import color
 from gui.app import TkinterApp, AppContext
 from gui.screens.save_demo import SaveDemoScreen
 from planet import Planet
-from resources.config import object_colors, button_colors, FRICTION_COEFFICIENT, FLEXIBILITY, textures
+from resources.config import object_colors, button_colors, FLEXIBILITY, textures
 from vector import Vector
 
 
@@ -67,14 +67,18 @@ class PlanetInfoScreen(TkinterApp):
         self.enteries[-3].place(relx=x + 0.14, rely=y, anchor=CENTER)
 
     def add_color_button(self, x, y):
-        self.color_button = Button(self.context.app, text='Change Color', command=self.change_color)
-        self.color_label = Button(self.context.app, text='', width=3, height=1, bg=next(button_colors))
+        self.color_button = Button(
+            self.context.app, text='Change Color', command=self.change_color)
+        self.color_label = Button(
+            self.context.app, text='', width=3, height=1, bg=next(button_colors))
         self.color_label.place(relx=x + 0.1, rely=y, anchor=CENTER)
         self.color_button.place(relx=x - 0.1, rely=y, anchor=CENTER)
 
     def add_texture_button(self, x, y):
-        self.texture_label = Label(self.context.app, width=20, text='planet texture')
-        self.textures_menu = OptionMenu(self.context.app, self.texture, *textures, command=self.paint_white)
+        self.texture_label = Label(
+            self.context.app, width=20, text='planet texture')
+        self.textures_menu = OptionMenu(
+            self.context.app, self.texture, *textures, command=self.paint_white)
         self.textures_menu.place(relx=x + 0.1, rely=y, anchor=CENTER)
         self.texture_label.place(relx=x - 0.1, rely=y, anchor=CENTER)
 
@@ -87,14 +91,19 @@ class PlanetInfoScreen(TkinterApp):
 
     def add_next_button(self):
         if self.current_planet == self.planet_number - 1:
-            self.button1 = Button(self.context.app, text='finish', height=1, width=15, command=self.finish)
+            self.button1 = Button(
+                self.context.app, text='finish', height=1, width=15, command=self.finish)
         else:
-            self.button1 = Button(self.context.app, text='next', height=1, width=15, command=self.next)
+            self.button1 = Button(
+                self.context.app, text='next', height=1, width=15, command=self.next)
 
     def initial_widgets(self):
-        self.pop_button = Button(self.context.app, text='back', height=1, width=9, command=self.back)
-        self.planet_label = Label(self.context.app, text=f'planet number {self.current_planet + 1}', height=1, width=15)
-        self.button2 = Button(self.context.app, text='random', height=1, width=15, command=self.randomize)
+        self.pop_button = Button(
+            self.context.app, text='back', height=1, width=9, command=self.back)
+        self.planet_label = Label(
+            self.context.app, text=f'planet number {self.current_planet + 1}', height=1, width=15)
+        self.button2 = Button(self.context.app, text='random',
+                              height=1, width=15, command=self.randomize)
         self.add_next_button()
 
     def initial_position(self):
@@ -151,7 +160,8 @@ class PlanetInfoScreen(TkinterApp):
         self.read_input()
         if self.error == '':
             self.pop()
-            PlanetInfoScreen(self.context, self.planet_number, self.current_planet + 1)
+            PlanetInfoScreen(self.context, self.planet_number,
+                             self.current_planet + 1)
         else:
             messagebox.showerror('Error', self.error)
 
@@ -164,7 +174,8 @@ class PlanetInfoScreen(TkinterApp):
         else:
             self.planets_data.pop()
             self.pop()
-            PlanetInfoScreen(self.context, self.planet_number, self.current_planet - 1)
+            PlanetInfoScreen(self.context, self.planet_number,
+                             self.current_planet - 1)
 
     def finish(self):
         self.read_input()

@@ -1,6 +1,4 @@
 from __future__ import annotations
-
-from resources.config import TRAIL_MODE
 from vector import *
 
 
@@ -22,7 +20,7 @@ class Planet:
 
     @staticmethod
     def small_builder(mass: float, radius: float, pos: Vector, velocity: Vector, canvas: canvas) -> Planet:
-        return Planet(mass, radius, pos, velocity, color.white,0.2, canvas)
+        return Planet(mass, radius, pos, velocity, color.white, 0.2, canvas)
 
     @staticmethod
     def complete_builder(mass: float, radius: float, pos: Vector, velocity: Vector, color: color,
@@ -33,7 +31,7 @@ class Planet:
         self.render_object = sphere(canvas=self.canvas,
                                     pos=self.pos.to_vpython_vector(), radius=self.radius, color=self.color,
                                     texture=f'assets/textures/{self.texture}.jpg',
-                                    make_trail=TRAIL_MODE,
+                                    make_trail=False,
                                     velocity=self.velocity.to_vpython_vector()
                                     )
         if self.texture == 'sun':
@@ -54,8 +52,10 @@ class Planet:
 
     def render_update(self) -> None:
         self.render_object.pos = self.pos.to_vpython_vector()
-        # self.render_object.make_trail = TRAIL_MODE
         # self.add_arrow('velocity')
+
+    def set_trail_state(self, value) -> None:
+        self.render_object.make_trail = value
 
     def reset_forces(self) -> None:
         self.force = Vector(0, 0, 0)

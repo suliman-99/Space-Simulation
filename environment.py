@@ -14,9 +14,14 @@ class Environment:
         self.frame_rate = 30
         self.calc_num = 30
         self.canvas = canvas(width=1300, height=550)
+        self.trail_state = False
 
-    def change_time_flow(self, value) -> None:
+    def set_time_speed(self, value) -> None:
         self.time_speed = value
+
+    def set_trail_state(self, value) -> None:
+        for planet in self.planets_array:
+            planet.set_trail_state(value)
 
     def can_add_planet(self, pos: Vector, radius: float) -> bool:
         for planet in self.planets_array:
@@ -45,13 +50,6 @@ class Environment:
 
     def clear_data(self) -> None:
         self.planets_array.clear()
-
-    def add_planet(self, mass, radius, pos, velocity) -> None:
-        self.planets_array.append(Planet.small_builder(
-            mass, radius, pos, velocity, self.canvas))
-
-    def add_planets(self, planets) -> None:
-        self.planets_array.extend(planets)
 
     def initilize_textures(self):
         scene.visible = False
