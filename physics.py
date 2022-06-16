@@ -6,7 +6,7 @@ g = 6.6743 * (10 ** -11)
 
 def apply_gravity(planet1: Planet, planet2: Planet) -> None:
     u = planet2.pos - planet1.pos
-    grav = g * planet1.mass * planet2.mass / (u.length ** 2)
+    grav = g * planet1.mass * planet2.mass / (u.length() ** 2)
     planet1.add_force(u.scale_to(grav))
     planet2.add_force(u.scale_to(-grav))
 
