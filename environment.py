@@ -10,6 +10,7 @@ from file import get_path
 class Environment:
     def __init__(self) -> None:
         self.planets_array: List[Planet] = []
+        self.time_scale = 1
         self.time_speed = 1
         self.frame_rate = 30
         self.calc_num = 30
