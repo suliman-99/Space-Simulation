@@ -16,16 +16,6 @@ files = [
     'Tow Around Each Other (Stable)'
 ]
 
-textures = [
-    'earth',
-    'jupiter',
-    'mars',
-    'mercury',
-    'moon',
-    'sun',
-    'venus',
-]
-
 object_colors = cycle([
     color.white,
     color.red,

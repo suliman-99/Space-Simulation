@@ -2,9 +2,6 @@ from __future__ import annotations
 from vector import *
 
 
-sun_texture = '/mnt/703CC3653CC324C6/JEDB projects/universe madbox/Space-Simulation/assets/textures/sun.jpg'
-
-
 class Planet:
 
     def __init__(self, mass: float, radius: float, pos: Vector, velocity: Vector, color: color,
@@ -29,7 +26,7 @@ class Planet:
                                     make_trail=False,
                                     velocity=self.velocity.to_vpython_vector()
                                     )
-        if self.texture == sun_texture:
+        if self.texture == './assets/textures/sun.jpg':
             self.shine()
 
     def add_points_trail(self, freq=3):

@@ -1,6 +1,5 @@
-import os
 import random
-from tkinter import Entry, Label, CENTER, Button, messagebox, OptionMenu, StringVar, filedialog
+from tkinter import Entry, Label, CENTER, Button, messagebox, filedialog
 
 from vpython import color
 
@@ -8,14 +7,14 @@ from file import get_relative_path
 from gui.app import TkinterApp, AppContext
 from gui.screens.save_demo import SaveDemoScreen
 from planet import Planet
-from resources.config import object_colors, button_colors, FLEXIBILITY, textures
+from resources.config import object_colors, button_colors, FLEXIBILITY
 from vector import Vector
 
 
 class PlanetInfoScreen(TkinterApp):
     def __init__(self, context: AppContext, planet_number: int, current_planet: int):
         self.textures_menu = None
-        self.texture_label = None
+        self.texture_button = None
         self.color_label = None
         self.color_button = None
         self.context = context
@@ -46,8 +45,6 @@ class PlanetInfoScreen(TkinterApp):
         self.add_vector_input_field("planet velocity : ", .5, .55)
         self.add_color_button(.5, .6)
         self.add_texture_button(.5, .65)
-        # self.add_input_field("Friction Coefficient", .5, .7)
-        # self.enteries[-1].insert(0, f'{FRICTION_COEFFICIENT}')
         self.add_input_field("Flexibility", .5, .7)
         self.enteries[-1].insert(0, f'{FLEXIBILITY}')
 
@@ -82,13 +79,9 @@ class PlanetInfoScreen(TkinterApp):
         file.close()
 
     def add_texture_button(self, x, y):
-        self.texture_label = Button(
+        self.texture_button = Button(
             self.context.app, width=20, text='planet texture', command=self.choose_texture)
-        
-        # self.textures_menu = OptionMenu(
-        #     self.context.app, self.texture, *textures, command=self.paint_white)
-        # self.textures_menu.place(relx=x + 0.1, rely=y, anchor=CENTER)
-        self.texture_label.place(relx=x - 0.1, rely=y, anchor=CENTER)
+        self.texture_button.place(relx=x, rely=y, anchor=CENTER)
 
     def paint_white(self):
         self.object_color = color.white

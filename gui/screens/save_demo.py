@@ -1,4 +1,3 @@
-import string
 from tkinter import Button, CENTER, messagebox, filedialog
 
 from file import save_on_file
