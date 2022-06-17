@@ -16,16 +16,6 @@ files = [
     'Tow Around Each Other (Stable)'
 ]
 
-textures = [
-    'earth',
-    'jupiter',
-    'mars',
-    'mercury',
-    'moon',
-    'sun',
-    'venus',
-]
-
 object_colors = cycle([
     color.white,
     color.red,
@@ -52,6 +42,6 @@ button_colors = cycle([
 
 MAXIMIZE = ('-topmost', '-zoomed')[sys.platform == 'linux']
 FULLSCREEN = '-fullscreen'
-MAX_SPEED = 50
+MAX_SPEED = 10
 MIN_SPEED = -2
 FLEXIBILITY: float = 0.2

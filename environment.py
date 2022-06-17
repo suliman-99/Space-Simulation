@@ -10,8 +10,8 @@ from file import get_path
 class Environment:
     def __init__(self) -> None:
         self.planets_array: List[Planet] = []
-        self.time_scale = 86400
-        self.time_speed = self.time_scale 
+        self.time_scale = 1
+        self.time_speed = 1
         self.frame_rate = 30
         self.calc_num = 30
         self.canvas = canvas(width=1300, height=550)
@@ -45,8 +45,17 @@ class Environment:
             v_y = float(finput.readline())
             v_z = float(finput.readline())
             velocity = Vector(v_x, v_y, v_z)
+            color_x = float(finput.readline())
+            color_y = float(finput.readline())
+            color_z = float(finput.readline())
+            flexibility = float(finput.readline())
+            texture = finput.readline()
+            c = color.white
+            c.x = color_x
+            c.y = color_y
+            c.z = color_z
             self.planets_array.append(
-                Planet(mass, radius, pos, velocity, color.white, 0.2, 'sun', self.canvas))
+                Planet(mass, radius, pos, velocity, c, flexibility, texture, self.canvas))
         finput.close()
 
     def run(self) -> None:

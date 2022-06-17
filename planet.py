@@ -19,13 +19,14 @@ class Planet:
         self.texture = texture
 
     def render(self):
+
         self.render_object = sphere(canvas=self.canvas,
                                     pos=self.pos.to_vpython_vector(), radius=self.radius, color=self.color,
-                                    texture=f'assets/textures/{self.texture}.jpg',
+                                    texture=self.texture,
                                     make_trail=False,
                                     velocity=self.velocity.to_vpython_vector()
                                     )
-        if self.texture == 'sun':
+        if self.texture == './assets/textures/sun.jpg':
             self.shine()
 
     def add_points_trail(self, freq=3):

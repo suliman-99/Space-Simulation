@@ -1,11 +1,8 @@
 import tkinter
-from tkinter.ttk import Progressbar
 
 from resources.config import MAXIMIZE
 from environment import Environment
-from tkinter import Label, PhotoImage, Widget, CENTER
-
-from resources.sound import play_sountrack
+from tkinter import Label, PhotoImage, Widget
 
 
 class AppContext:

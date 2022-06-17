@@ -10,7 +10,7 @@ class Controls:
 
     def on_changed(self, s):
         self.slider_value = s.value
-        self.environment.set_time_speed(self.slider_value)
+        self.environment.set_time_speed(self.slider_value * self.environment.time_scale)
 
     def on_pressed(self):
         if self.environment.time_speed == 0:
