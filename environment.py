@@ -10,14 +10,14 @@ from file import get_path
 class Environment:
     def __init__(self) -> None:
         self.planets_array: List[Planet] = []
-        self.time_speed = 1
+        self.time_scale = 86400
+        self.time_speed = self.time_scale 
         self.frame_rate = 30
         self.calc_num = 30
         self.canvas = canvas(width=1300, height=550)
-        self.trail_state = False
 
     def set_time_speed(self, value) -> None:
-        self.time_speed = value
+        self.time_speed = value * self.time_scale 
 
     def set_trail_state(self, value) -> None:
         for planet in self.planets_array:

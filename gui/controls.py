@@ -32,4 +32,4 @@ class Controls:
                min=resources.config.MIN_SPEED, max=resources.config.MAX_SPEED, length=1200)
         scene.append_to_caption('\n\n')
         checkbox(bind=self.on_cheked, text='Show Trail',
-                 checked=self.environment.trail_state)
+                 checked=False)
