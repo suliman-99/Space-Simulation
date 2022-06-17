@@ -36,3 +36,9 @@ def save_on_file(planets_array: list[Planet], output_file: IO):
         output_file.write(f"{planet.flexibility}\n")
         output_file.write(f"{planet.texture}\n")
     output_file.close()
+
+
+def get_relative_path(file_path: str) -> str:
+    index = file_path.find('/assets')
+    file_path = '.' + file_path[index:]
+    return file_path

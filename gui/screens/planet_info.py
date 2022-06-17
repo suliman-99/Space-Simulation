@@ -1,8 +1,10 @@
+import os
 import random
-from tkinter import Entry, Label, CENTER, Button, messagebox, OptionMenu, StringVar
+from tkinter import Entry, Label, CENTER, Button, messagebox, OptionMenu, StringVar, filedialog
 
 from vpython import color
 
+from file import get_relative_path
 from gui.app import TkinterApp, AppContext
 from gui.screens.save_demo import SaveDemoScreen
 from planet import Planet
@@ -26,8 +28,7 @@ class PlanetInfoScreen(TkinterApp):
         self.button1 = None
         self.button2 = None
         self.planet = None
-        self.texture = StringVar(self.context.app)
-        self.texture.set('sun')
+        self.texture = None
         self.planet_number = planet_number
         self.current_planet = current_planet
 
@@ -74,15 +75,22 @@ class PlanetInfoScreen(TkinterApp):
         self.color_label.place(relx=x + 0.1, rely=y, anchor=CENTER)
         self.color_button.place(relx=x - 0.1, rely=y, anchor=CENTER)
 
+    def choose_texture(self):
+        self.paint_white()
+        file = filedialog.askopenfile(filetypes=(("Text Files", "*.jpg"),), initialdir='./assets/textures')
+        self.texture = get_relative_path(file.name)
+        file.close()
+
     def add_texture_button(self, x, y):
-        self.texture_label = Label(
-            self.context.app, width=20, text='planet texture')
-        self.textures_menu = OptionMenu(
-            self.context.app, self.texture, *textures, command=self.paint_white)
-        self.textures_menu.place(relx=x + 0.1, rely=y, anchor=CENTER)
+        self.texture_label = Button(
+            self.context.app, width=20, text='planet texture', command=self.choose_texture)
+        
+        # self.textures_menu = OptionMenu(
+        #     self.context.app, self.texture, *textures, command=self.paint_white)
+        # self.textures_menu.place(relx=x + 0.1, rely=y, anchor=CENTER)
         self.texture_label.place(relx=x - 0.1, rely=y, anchor=CENTER)
 
-    def paint_white(self, s):
+    def paint_white(self):
         self.object_color = color.white
 
     def change_color(self):
@@ -131,7 +139,7 @@ class PlanetInfoScreen(TkinterApp):
         velocity = Vector(x, y, z)
         self.planet = Planet(mass, radius, pos, velocity, planet_color,
                              flexibility,
-                             self.texture.get(), self.context.environment.canvas)
+                             self.texture, self.context.environment.canvas)
         self.validate_input()
         if self.error == '':
             self.planets_data.append(self.planet)
