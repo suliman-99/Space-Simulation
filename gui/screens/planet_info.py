@@ -47,7 +47,7 @@ class PlanetInfoScreen(TkinterApp):
         self.add_texture_button(.5, .65)
         self.add_input_field("Flexibility : ", .5, .7)
         self.enteries[-1].insert(0, f'{FLEXIBILITY}')
-        self.add_input_field("Spin speed (Earth day) : ", .5, .75)
+        self.add_input_field("Hours per Spin : ", .5, .75)
 
     def initial_widgets(self):
         self.pop_button = Button(
@@ -90,8 +90,9 @@ class PlanetInfoScreen(TkinterApp):
 
     def choose_texture(self):
         self.paint_white()
-        file = filedialog.askopenfile(filetypes=(("Text Files", "*.jpg"),), initialdir='./assets/textures')
-        self.texture = get_relative_path(file.name)
+        file = filedialog.askopenfile(filetypes=(
+            ("Text Files", "*.jpg"),), initialdir='./assets/textures')
+        self.texture = get_relative_path(file.name) + '\n'
         file.close()
 
     def add_texture_button(self, x, y):
@@ -127,19 +128,21 @@ class PlanetInfoScreen(TkinterApp):
             z = float(self.enteries[7].get())
             planet_color = self.object_color
             flexibility = float(self.enteries[8].get())
-            spin_speed = float(self.enteries[9].get())
+            spin_hours = float(self.enteries[9].get())
         except ValueError:
             self.error = 'invalid input!!'
             return
         velocity = Vector(x, y, z)
         self.planet = Planet(mass, radius, pos, velocity, planet_color,
-                             flexibility, spin_speed,
+                             flexibility, spin_hours,
                              self.texture, self.context.environment.canvas)
         self.validate_input()
         if self.error == '':
             self.planets_data.append(self.planet)
 
     def validate_input(self):
+        if self.planet.texture == None:
+            self.planet.texture = './assets/textures/sun.jpg\n'
         if self.planet.velocity.length() >= 300000000:
             self.error = 'velocity must be less that 300,000,000 m/s'
         else:
@@ -193,7 +196,7 @@ class PlanetInfoScreen(TkinterApp):
         v_x = random.randint(-100000000, 100000000)
         v_y = random.randint(-100000000, 100000000)
         v_z = random.randint(-100000000, 100000000)
-        spin_speed = random.randint(-100, 100)
+        spin_hours = random.randint(-100, 100)
         self.clear_fields()
         self.change_color()
         self.enteries[0].insert(0, f'{mass}')
@@ -204,4 +207,4 @@ class PlanetInfoScreen(TkinterApp):
         self.enteries[5].insert(0, f'{v_x}')
         self.enteries[6].insert(0, f'{v_y}')
         self.enteries[7].insert(0, f'{v_z}')
-        self.enteries[8].insert(0, f'{spin_speed}')
+        self.enteries[9].insert(0, f'{spin_hours}')

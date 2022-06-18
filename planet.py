@@ -5,7 +5,7 @@ from vector import *
 class Planet:
 
     def __init__(self, mass: float, radius: float, pos: Vector, velocity: Vector, color: color,
-                 flexibility: float, spin_speed: float, texture: string, canvas: canvas) -> None:
+                 flexibility: float, spin_hours: float, texture: string, canvas: canvas) -> None:
         self.render_object = None
         self.mass = mass
         self.radius = radius
@@ -17,7 +17,7 @@ class Planet:
         self.flexibility = flexibility
         self.canvas = canvas
         self.texture = texture
-        self.spin_speed = spin_speed
+        self.spin_hours = spin_hours
 
     def render(self):
 
@@ -43,8 +43,13 @@ class Planet:
                                 self.render_object.pos.y, self.render_object.pos.z),
                      color=color.yellow)
 
-    def render_update(self) -> None:
+    def render_update(self, dt: float) -> None:
         self.render_object.pos = self.pos.to_vpython_vector()
+        angle = dt / (self.spin_hours * 3600)
+        v = vec(self.render_object.pos._x,
+                self.render_object.pos._y, self.render_object.pos._z-1)
+        self.render_object.rotate(
+            angle=angle, axis=v, origin=self.render_object.pos)
         # self.add_arrow('velocity')
 
     def set_trail_state(self, value) -> None:
