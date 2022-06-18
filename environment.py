@@ -10,11 +10,12 @@ from file import get_path
 class Environment:
     def __init__(self) -> None:
         self.planets_array: List[Planet] = []
-        self.time_scale = 86000
-        self.time_speed = 86000
+        self.time_scale = 1
+        self.time_speed = 1
         self.frame_rate = 30
         self.calc_num = 30
         self.canvas = canvas(width=1300, height=550)
+        self.isActive = True
 
     def set_time_speed(self, value) -> None:
         self.time_speed = value * self.time_scale
@@ -62,14 +63,18 @@ class Environment:
                 Planet(mass, radius, pos, velocity, c, flexibility, texture, self.canvas))
         finput.close()
 
-    def restart_environment(self):
-        self.set_time_speed(0)
-        self.scan_from_file('./demos/current_demo.txt')
+    def clear_trails(self):
+        for planet in self.planets_array:
+            planet.render_object.clear_trail()
+
+    def render_delete(self):
+        for planet in self.planets_array:
+            planet.render_object.visible = False
 
     def run(self) -> None:
         initilize_textures()
         self.render()
-        while True:
+        while self.isActive:
             rate(self.frame_rate)
             dt = self.time_speed / self.frame_rate
             self.take_input()
@@ -77,13 +82,17 @@ class Environment:
                 self.collision()
                 self.physics(dt / self.calc_num)
             self.render_update()
+        self.isActive = True
+        self.render_delete()
+        self.clear_trails()
+        self.scan_from_file('./demos/current_demo.txt')
+        self.run()
 
     def render(self) -> None:
         control_panel = Controls(self)
-        control_panel.render_up()
+        control_panel.render()
         for planet in self.planets_array:
             planet.render()
-        control_panel.render()
 
     def render_update(self) -> None:
         for planet in self.planets_array:
