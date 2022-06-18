@@ -53,8 +53,8 @@ class Environment:
             color_y = float(finput.readline())
             color_z = float(finput.readline())
             flexibility = float(finput.readline())
-            texture = finput.readline()
             spin_speed = float(finput.readline())
+            texture = finput.readline()
             if texture == 'None\n':
                 texture = None
             c = color.white

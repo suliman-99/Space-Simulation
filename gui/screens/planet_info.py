@@ -90,7 +90,7 @@ class PlanetInfoScreen(TkinterApp):
 
     def choose_texture(self):
         self.paint_white()
-        file = filedialog.askopenfile(filetypes=(("Text Files", "*.jpg"),), initialdir='./assets/textures')
+        file = filedialog.askopenfile(filetypes=(("Text Files", "*"),), initialdir='./assets/textures')
         self.texture = get_relative_path(file.name)
         file.close()
 
@@ -204,4 +204,4 @@ class PlanetInfoScreen(TkinterApp):
         self.enteries[5].insert(0, f'{v_x}')
         self.enteries[6].insert(0, f'{v_y}')
         self.enteries[7].insert(0, f'{v_z}')
-        self.enteries[8].insert(0, f'{spin_speed}')
+        self.enteries[9].insert(0, f'{spin_speed}')
