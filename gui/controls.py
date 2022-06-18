@@ -10,7 +10,7 @@ class Controls:
 
     def on_changed(self, s):
         self.slider_value = s.value
-        self.environment.set_time_speed(self.slider_value * self.environment.time_scale)
+        self.environment.set_time_speed(self.slider_value)
 
     def on_pressed(self):
         if self.environment.time_speed == 0:
@@ -32,4 +32,4 @@ class Controls:
                min=resources.config.MIN_SPEED, max=resources.config.MAX_SPEED, length=1200)
         scene.append_to_caption('\n\n')
         checkbox(bind=self.on_cheked, text='Show Trail',
-                 checked=self.environment.trail_state)
+                 checked=False)

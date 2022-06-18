@@ -1,6 +1,4 @@
 import tkinter
-
-from resources.config import MAXIMIZE
 from environment import Environment
 from tkinter import Label, PhotoImage, Widget
 
@@ -11,12 +9,12 @@ class AppContext:
     def __init__(self):
         self.app = tkinter.Tk()
         self.environment = Environment()
-        self.init_screen(MAXIMIZE)
+        self.init_screen()
 
-    def init_screen(self, screen_status):
+    def init_screen(self):
         self.app.geometry('600x400+0+0')
         self.app.title('Space Simulation')
-        self.app.attributes(screen_status, True)
+        self.app.state('zoomed')
 
 
 class TkinterApp:
@@ -24,7 +22,8 @@ class TkinterApp:
         self.context = AppContext()
 
         image = PhotoImage(file='./assets/image/background2.png')
-        background = Label(self.context.app, image=image, width=2000, height=1100)
+        background = Label(self.context.app, image=image,
+                           width=2000, height=1100)
         background.place(x=0, y=0)
 
         play_sountrack()

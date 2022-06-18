@@ -40,8 +40,6 @@ button_colors = cycle([
     'yellow',
 ])
 
-MAXIMIZE = ('-topmost', '-zoomed')[sys.platform == 'linux']
-FULLSCREEN = '-fullscreen'
 MAX_SPEED = 10
 MIN_SPEED = -2
 FLEXIBILITY: float = 0.2

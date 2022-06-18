@@ -138,22 +138,8 @@ class PlanetInfoScreen(TkinterApp):
             self.planets_data.append(self.planet)
 
     def validate_input(self):
-        if self.planet.mass < 0 or self.planet.mass > 1000000000000000000:
-            self.error = 'mass must be between 0 and 1000000000000000000'
-        elif self.planet.pos.x < -1000000000000 or self.planet.pos.x > 1000000000000:
-            self.error = 'x position must be between -1000000000000 and 1000000000000'
-        elif self.planet.pos.y < -1000000000000 or self.planet.pos.y > 1000000000000:
-            self.error = 'y position must be between -1000000000000 and 1000000000000'
-        elif self.planet.pos.z < -1000000000000 or self.planet.pos.z > 1000000000000:
-            self.error = 'z position must be between -1000000000000 and 1000000000000'
-        elif self.planet.radius < 1 or self.planet.pos.x > 1000000000:
-            self.error = 'radius must be between 1 and 1000000000'
-        elif self.planet.velocity.x < -1000000000000 or self.planet.pos.x > 1000000000000:
-            self.error = 'x velocity must be between -1000000000000 and 1000000000000'
-        elif self.planet.velocity.y < -1000000000000 or self.planet.pos.x > 1000000000000:
-            self.error = 'y velocity must be between -1000000000000 and 1000000000000'
-        elif self.planet.velocity.z < -1000000000000 or self.planet.pos.x > 1000000000000:
-            self.error = 'z velocity must be between -1000000000000 and 1000000000000'
+        if self.planet.velocity.length() >= 300000000:
+            self.error = 'velocity must be less that 300,000,000 m/s'
         else:
             self.error = ''
 
