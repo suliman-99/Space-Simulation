@@ -69,6 +69,16 @@ class Environment:
         for planet in self.planets_array:
             planet.render_object.clear_trail()
 
+    def arrows_stop(self):
+        for planet in self.planets_array:
+            planet.velocity_arrow.stop()
+            planet.acceleration_arrow.stop()
+
+    def arrows_start(self):
+        for planet in self.planets_array:
+            planet.velocity_arrow.start()
+            planet.acceleration_arrow.start()
+
     def render_delete(self):
         for planet in self.planets_array:
             planet.render_object.visible = False
