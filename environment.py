@@ -34,6 +34,8 @@ class Environment:
         inputpath = get_path(file)
         finput = open(inputpath, "r")
         planet_number = int(finput.readline())
+        self.time_scale = int(finput.readline())
+        self.set_time_speed(1)
         for i in range(planet_number):
             mass = float(finput.readline())
             pos_x = float(finput.readline())
@@ -50,6 +52,8 @@ class Environment:
             color_z = float(finput.readline())
             flexibility = float(finput.readline())
             texture = finput.readline()
+            if texture == 'None\n':
+                texture = None
             c = color.white
             c.x = color_x
             c.y = color_y
@@ -57,6 +61,10 @@ class Environment:
             self.planets_array.append(
                 Planet(mass, radius, pos, velocity, c, flexibility, texture, self.canvas))
         finput.close()
+
+    def restart_environment(self):
+        self.set_time_speed(0)
+        self.scan_from_file('./demos/current_demo.txt')
 
     def run(self) -> None:
         initilize_textures()
@@ -71,9 +79,10 @@ class Environment:
             self.render_update()
 
     def render(self) -> None:
+        control_panel = Controls(self)
+        control_panel.render_up()
         for planet in self.planets_array:
             planet.render()
-        control_panel = Controls(self)
         control_panel.render()
 
     def render_update(self) -> None:

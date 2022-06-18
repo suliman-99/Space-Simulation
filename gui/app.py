@@ -1,6 +1,10 @@
+import sys
 import tkinter
 from environment import Environment
 from tkinter import Label, PhotoImage, Widget
+
+from file import save_as
+from resources.sound import play_sountrack
 
 
 class AppContext:
@@ -12,7 +16,10 @@ class AppContext:
     def init_screen(self):
         self.app.geometry('600x400+0+0')
         self.app.title('Space Simulation')
-        self.app.state('zoomed')
+        if sys.platform == 'linux':
+            self.app.attributes('-zoomed', True)
+        else:
+            self.app.state('zoomed')
 
 
 class TkinterApp:
@@ -24,7 +31,7 @@ class TkinterApp:
                            width=2000, height=1100)
         background.place(x=0, y=0)
 
-        # play_sountrack()
+        play_sountrack()
         home(self.context)
 
     def get_widgets(self):
@@ -44,5 +51,6 @@ class TkinterApp:
             widget.destroy()
 
     def run_environment(self):
+        save_as(self.context.environment.planets_array, self.context.environment.time_scale, 'current_demo')
         self.context.app.destroy()
         self.context.environment.run()
