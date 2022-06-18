@@ -40,18 +40,22 @@ class Controls:
 
     def render(self):
         space = '\t\t\t\t'
-        self.environment.canvas.append_to_caption('\n\n  ')
+        self.environment.canvas.append_to_caption('\n')
         self.slider = slider(bind=self.on_changed, value=1,
                              min=resources.config.MIN_SPEED, max=resources.config.MAX_SPEED, length=1300)
         self.environment.canvas.append_to_caption('\n\n')
         self.environment.canvas.append_to_caption(space)
-        self.restart_button = button(bind=self.restart_demo, text='<b>HOT RESTART!!</b>', color=color.black)
+        self.restart_button = button(
+            bind=self.restart_demo, text='<b>HOT RESTART!!</b>', color=color.black)
         self.environment.canvas.append_to_caption(space)
-        self.save_button = button(bind=self.on_saved, text='<b>Save State</b>', color=color.blue)
+        self.save_button = button(
+            bind=self.on_saved, text='<b>Save State</b>', color=color.blue)
         self.environment.canvas.append_to_caption(space)
-        self.pause_button = button(bind=self.on_pressed, text='<b>Pause</b>', color=color.purple)
+        self.pause_button = button(
+            bind=self.on_pressed, text='<b>Pause</b>', color=color.purple)
         self.environment.canvas.append_to_caption(space)
-        self.clear_trail = button(bind=self.clear_trails, text='<b>Clear trails</b>', color=color.purple)
+        self.clear_trail = button(
+            bind=self.clear_trails, text='<b>Clear trails</b>', color=color.purple)
         self.environment.canvas.append_to_caption(space)
         self.checkbox = checkbox(
             bind=self.on_cheked, text='Show Trail', checked=False)

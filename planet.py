@@ -20,22 +20,30 @@ class Planet:
         self.spin_hours = spin_hours
 
     def render(self):
-
         self.render_object = sphere(canvas=self.canvas,
                                     pos=self.pos.to_vpython_vector(), radius=self.radius, color=self.color,
                                     texture=self.texture,
                                     make_trail=False,
-                                    velocity=self.velocity.to_vpython_vector()
+                                    velocity=self.velocity.to_vpython_vector(),
+                                    acceleration=self.acceleration.to_vpython_vector()
                                     )
+        self.velocity_arrow = self.add_arrow('velocity', color.green)
+        self.acceleration_arrow = self.add_arrow('acceleration', color.red)
         if self.texture == './assets/textures/sun.jpg':
             self.shine()
 
-    def add_points_trail(self, freq=3):
-        attach_trail(self.render_object, type='points', radius=0.03, pps=freq)
+    def add_arrow(self, atterbute, color):
+        return attach_arrow(self.render_object, atterbute, scale=1,
+                            shaftwidth=0.2*self.radius, pos=self.render_object.pos, color=color)
 
-    def add_arrow(self, atterbute):
-        attach_arrow(self.render_object, atterbute, scale=3,
-                     shaftwidth=0.1, pos=self.render_object.pos)
+    def update_arrows_data(self):
+        v = self.velocity
+        v = v.scale_to(2*self.radius + v.length())
+        self.render_object.velocity = v.to_vpython_vector()
+
+        a = self.force / self.mass
+        a = a.scale_to(2*self.radius + a.length())
+        self.render_object.acceleration = a.to_vpython_vector()
 
     def shine(self):
         attach_light(self.render_object,
@@ -47,7 +55,7 @@ class Planet:
         self.render_object.pos = self.pos.to_vpython_vector()
         angle = dt / (self.spin_hours * 3600)
         self.render_object.rotate(axis=vector(0, 0, 1), angle=angle)
-        # self.add_arrow('velocity')
+        self.update_arrows_data()
 
     def set_trail_state(self, value) -> None:
         self.render_object.make_trail = value

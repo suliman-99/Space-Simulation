@@ -12,6 +12,7 @@
 1.0
 1.0
 0.2
+1.0
 ./assets/textures/earth.jpg
 100000000000
 2.5
@@ -25,6 +26,7 @@
 1.0
 1.0
 0.2
+1.0
 ./assets/textures/mars.jpg
 100000000000
 -2.5
@@ -38,6 +40,7 @@
 1.0
 1.0
 0.2
+1.0
 ./assets/textures/moon.jpg
 100000000000
 -5.0
@@ -51,6 +54,7 @@
 1.0
 1.0
 0.2
+1.0
 ./assets/textures/jupiter.jpg
 100000000000
 -2.5
@@ -64,6 +68,7 @@
 1.0
 1.0
 0.2
+1.0
 ./assets/textures/mercury.jpg
 100000000000
 2.5
@@ -77,4 +82,5 @@
 1.0
 1.0
 0.2
+1.0
 ./assets/textures/sun.jpg
