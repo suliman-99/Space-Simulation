@@ -46,10 +46,7 @@ class Planet:
     def render_update(self, dt: float) -> None:
         self.render_object.pos = self.pos.to_vpython_vector()
         angle = dt / (self.spin_hours * 3600)
-        v = vec(self.render_object.pos._x,
-                self.render_object.pos._y, self.render_object.pos._z-1)
-        self.render_object.rotate(
-            angle=angle, axis=v, origin=self.render_object.pos)
+        self.render_object.rotate(axis=vector(0, 0, 1), angle=angle)
         # self.add_arrow('velocity')
 
     def set_trail_state(self, value) -> None:
