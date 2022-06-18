@@ -18,6 +18,11 @@ def get_path(file):
     return fpath
 
 
+def save_as(planets_array: list[Planet], time_scale: int, filename: str):
+    file = open(f'./demos/{filename}.txt', 'w')
+    save_on_file(planets_array, file, time_scale)
+
+
 def save_on_file(planets_array: list[Planet], output_file: IO, time_scale: int):
     planet_number = planets_array.__len__()
     output_file.write(f"{planet_number}\n")
@@ -35,7 +40,7 @@ def save_on_file(planets_array: list[Planet], output_file: IO, time_scale: int):
         output_file.write(f"{planet.color._y}\n")
         output_file.write(f"{planet.color._z}\n")
         output_file.write(f"{planet.flexibility}\n")
-        output_file.write(f"{planet.texture}\n")
+        output_file.write(f"{planet.texture}")
     output_file.close()
 
 
