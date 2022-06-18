@@ -54,6 +54,7 @@ class Environment:
             color_z = float(finput.readline())
             flexibility = float(finput.readline())
             texture = finput.readline()
+            spin_speed = float(finput.readline())
             if texture == 'None\n':
                 texture = None
             c = color.white
@@ -61,7 +62,7 @@ class Environment:
             c.y = color_y
             c.z = color_z
             self.planets_array.append(
-                Planet(mass, radius, pos, velocity, c, flexibility, texture, self.canvas))
+                Planet(mass, radius, pos, velocity, c, flexibility, spin_speed, texture, self.canvas))
         finput.close()
 
     def clear_trails(self):

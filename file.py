@@ -40,6 +40,7 @@ def save_on_file(planets_array: list[Planet], output_file: IO, time_scale: int):
         output_file.write(f"{planet.color._y}\n")
         output_file.write(f"{planet.color._z}\n")
         output_file.write(f"{planet.flexibility}\n")
+        output_file.write(f"{planet.spin_speed}\n")
         output_file.write(f"{planet.texture}")
     output_file.close()
 

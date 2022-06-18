@@ -45,8 +45,24 @@ class PlanetInfoScreen(TkinterApp):
         self.add_vector_input_field("planet velocity : ", .5, .55)
         self.add_color_button(.5, .6)
         self.add_texture_button(.5, .65)
-        self.add_input_field("Flexibility", .5, .7)
+        self.add_input_field("Flexibility : ", .5, .7)
         self.enteries[-1].insert(0, f'{FLEXIBILITY}')
+        self.add_input_field("Spin speed (Earth day) : ", .5, .75)
+
+    def initial_widgets(self):
+        self.pop_button = Button(
+            self.context.app, text='back', height=1, width=9, command=self.back)
+        self.planet_label = Label(
+            self.context.app, text=f'planet number {self.current_planet + 1}', height=1, width=15)
+        self.button2 = Button(self.context.app, text='random',
+                              height=1, width=15, command=self.randomize)
+        self.add_next_button()
+
+    def initial_position(self):
+        self.pop_button.place(relx=.2, rely=.1, anchor=CENTER)
+        self.button1.place(relx=.58, rely=.85, anchor=CENTER)
+        self.button2.place(relx=.42, rely=.85, anchor=CENTER)
+        self.planet_label.place(relx=.5, rely=.25, anchor=CENTER)
 
     def add_input_field(self, label, x, y):
         self.enteries.append(Entry(self.context.app))
@@ -98,21 +114,6 @@ class PlanetInfoScreen(TkinterApp):
             self.button1 = Button(
                 self.context.app, text='next', height=1, width=15, command=self.next)
 
-    def initial_widgets(self):
-        self.pop_button = Button(
-            self.context.app, text='back', height=1, width=9, command=self.back)
-        self.planet_label = Label(
-            self.context.app, text=f'planet number {self.current_planet + 1}', height=1, width=15)
-        self.button2 = Button(self.context.app, text='random',
-                              height=1, width=15, command=self.randomize)
-        self.add_next_button()
-
-    def initial_position(self):
-        self.pop_button.place(relx=.2, rely=.1, anchor=CENTER)
-        self.button1.place(relx=.58, rely=.85, anchor=CENTER)
-        self.button2.place(relx=.42, rely=.85, anchor=CENTER)
-        self.planet_label.place(relx=.5, rely=.25, anchor=CENTER)
-
     def read_input(self):
         try:
             mass = float(self.enteries[0].get())
@@ -126,12 +127,13 @@ class PlanetInfoScreen(TkinterApp):
             z = float(self.enteries[7].get())
             planet_color = self.object_color
             flexibility = float(self.enteries[8].get())
+            spin_speed = float(self.enteries[9].get())
         except ValueError:
             self.error = 'invalid input!!'
             return
         velocity = Vector(x, y, z)
         self.planet = Planet(mass, radius, pos, velocity, planet_color,
-                             flexibility,
+                             flexibility, spin_speed,
                              self.texture, self.context.environment.canvas)
         self.validate_input()
         if self.error == '':
@@ -191,6 +193,7 @@ class PlanetInfoScreen(TkinterApp):
         v_x = random.randint(-100000000, 100000000)
         v_y = random.randint(-100000000, 100000000)
         v_z = random.randint(-100000000, 100000000)
+        spin_speed = random.randint(-100, 100)
         self.clear_fields()
         self.change_color()
         self.enteries[0].insert(0, f'{mass}')
@@ -201,3 +204,4 @@ class PlanetInfoScreen(TkinterApp):
         self.enteries[5].insert(0, f'{v_x}')
         self.enteries[6].insert(0, f'{v_y}')
         self.enteries[7].insert(0, f'{v_z}')
+        self.enteries[8].insert(0, f'{spin_speed}')

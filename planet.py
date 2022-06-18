@@ -5,7 +5,7 @@ from vector import *
 class Planet:
 
     def __init__(self, mass: float, radius: float, pos: Vector, velocity: Vector, color: color,
-                 flexibility: float, texture: string, canvas: canvas) -> None:
+                 flexibility: float, spin_speed: float, texture: string, canvas: canvas) -> None:
         self.render_object = None
         self.mass = mass
         self.radius = radius
@@ -17,6 +17,7 @@ class Planet:
         self.flexibility = flexibility
         self.canvas = canvas
         self.texture = texture
+        self.spin_speed = spin_speed
 
     def render(self):
 
