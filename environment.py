@@ -15,7 +15,8 @@ class Environment:
         self.frame_rate = 30
         self.calc_num = 30
         self.canvas = canvas(width=1300, height=550)
-        self.isActive = True
+        self.is_active = True
+        self.has_buttons = False
 
     def set_time_speed(self, value) -> None:
         self.time_speed = value * self.time_scale
@@ -74,7 +75,7 @@ class Environment:
     def run(self) -> None:
         initilize_textures()
         self.render()
-        while self.isActive:
+        while self.is_active:
             rate(self.frame_rate)
             dt = self.time_speed / self.frame_rate
             self.take_input()
@@ -82,15 +83,17 @@ class Environment:
                 self.collision()
                 self.physics(dt / self.calc_num)
             self.render_update()
-        self.isActive = True
+        self.is_active = True
         self.render_delete()
         self.clear_trails()
         self.scan_from_file('./demos/current_demo.txt')
         self.run()
 
     def render(self) -> None:
-        control_panel = Controls(self)
-        control_panel.render()
+        if not self.has_buttons:
+            control_panel = Controls(self)
+            control_panel.render()
+            self.has_buttons = True
         for planet in self.planets_array:
             planet.render()
 
