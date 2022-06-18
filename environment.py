@@ -35,6 +35,7 @@ class Environment:
         inputpath = get_path(file)
         finput = open(inputpath, "r")
         planet_number = int(finput.readline())
+        self.time_scale = int(finput.readline())
         for i in range(planet_number):
             mass = float(finput.readline())
             pos_x = float(finput.readline())
@@ -51,6 +52,8 @@ class Environment:
             color_z = float(finput.readline())
             flexibility = float(finput.readline())
             texture = finput.readline()
+            if texture == 'None\n':
+                texture = None
             c = color.white
             c.x = color_x
             c.y = color_y

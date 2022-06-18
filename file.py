@@ -18,9 +18,10 @@ def get_path(file):
     return fpath
 
 
-def save_on_file(planets_array: list[Planet], output_file: IO):
+def save_on_file(planets_array: list[Planet], output_file: IO, time_scale: int):
     planet_number = planets_array.__len__()
     output_file.write(f"{planet_number}\n")
+    output_file.write(f"{time_scale}\n")
     for planet in planets_array:
         output_file.write(f"{planet.mass}\n")
         output_file.write(f"{planet.pos.x}\n")
