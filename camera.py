@@ -42,8 +42,8 @@ class Camera:
     def move_left(self):
         self.is_focused = True
         self.focus_on = self.focus_on - 1
-        if self.focus_on == 0:
-            self.focus_on = len(self.planets_array)
+        if self.focus_on < 0:
+            self.focus_on = len(self.planets_array) - 1
 
     def unfocus(self):
         self.is_focused = False

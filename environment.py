@@ -71,15 +71,25 @@ class Environment:
         for planet in self.planets_array:
             planet.render_object.clear_trail()
 
-    def arrows_stop(self):
-        for planet in self.planets_array:
-            planet.velocity_arrow.stop()
-            planet.acceleration_arrow.stop()
-
-    def arrows_start(self):
+    def velocity_arrows_start(self):
         for planet in self.planets_array:
             planet.velocity_arrow.start()
+
+    def velocity_arrows_stop(self):
+        for planet in self.planets_array:
+            planet.velocity_arrow.stop()
+
+    def acceleration_arrows_start(self):
+        for planet in self.planets_array:
             planet.acceleration_arrow.start()
+
+    def acceleration_arrows_stop(self):
+        for planet in self.planets_array:
+            planet.acceleration_arrow.stop()
+
+    def clear_arrows(self):
+        self.acceleration_arrows_stop()
+        self.velocity_arrows_stop()
 
     def render_delete(self):
         for planet in self.planets_array:

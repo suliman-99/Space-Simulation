@@ -5,6 +5,8 @@ from file import save_as
 
 class Controls:
     def __init__(self, environment, camera):
+        self.velocity_checkbox = None
+        self.acceleration_checkbox = None
         self.save_button = None
         self.clear_trail = None
         self.checkbox = None
@@ -39,6 +41,7 @@ class Controls:
         self.environment.set_trail_state(value.checked)
 
     def restart_demo(self):
+        self.environment.clear_arrows()
         self.environment.is_active = False
         self.slider.value = 1
         self.slider_value = 1
@@ -57,6 +60,18 @@ class Controls:
                 self.camera.unfocus()
             else:
                 self.camera.focus()
+
+    def show_velocity(self, value):
+        if value.checked:
+            self.environment.velocity_arrows_start()
+        else:
+            self.environment.velocity_arrows_stop()
+
+    def show_acceleration(self, value):
+        if value.checked:
+            self.environment.acceleration_arrows_start()
+        else:
+            self.environment.acceleration_arrows_stop()
 
     def render(self):
         space = '\t\t\t\t'
@@ -78,4 +93,9 @@ class Controls:
             bind=self.clear_trails, text='<b>Clear trails</b>', color=color.purple)
         self.environment.canvas.append_to_caption(space)
         self.checkbox = checkbox(bind=self.on_cheked, text='Show Trail', checked=False)
+        self.environment.canvas.append_to_caption('\n\n')
+        self.environment.canvas.append_to_caption(space * 2)
+        self.velocity_checkbox = checkbox(bind=self.show_velocity, text='show velocity', checked=True)
+        self.environment.canvas.append_to_caption(space * 2)
+        self.acceleration_checkbox = checkbox(bind=self.show_acceleration, text='show acceleration', checked=True)
         self.environment.canvas.bind('keydown', self.key_input)
