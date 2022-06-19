@@ -24,8 +24,8 @@ class HomeScreen(TkinterApp):
         self.initial_position()
 
     def initial_widgets(self):
-        self.button1 = Button(self.context.app, text='Interesting Simulations', height=2, width=20,
-                              command=self.choose_demo)
+        # self.button1 = Button(self.context.app, text='Interesting Simulations', height=2, width=20,
+        #                       command=self.choose_demo)
         self.button2 = Button(self.context.app, text='Create new Simulation', height=2, width=20,
                               command=self.input_demo)
         self.button3 = Button(self.context.app, text='Simulation From File', height=2, width=20,
@@ -42,9 +42,9 @@ class HomeScreen(TkinterApp):
             messagebox.showerror("Error", "No Simulation has been loaded!!")
 
     def initial_position(self):
-        self.button1.place(relx=0.5, rely=0.6, anchor=CENTER)
+        # self.button1.place(relx=0.5, rely=0.6, anchor=CENTER)
         self.button2.place(relx=0.5, rely=0.5, anchor=CENTER)
-        self.button3.place(relx=0.5, rely=0.7, anchor=CENTER)
+        self.button3.place(relx=0.5, rely=0.6, anchor=CENTER)
 
     def input_demo(self):
         self.pop()

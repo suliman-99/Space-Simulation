@@ -46,6 +46,8 @@ class Controls:
         self.slider.value = 1
         self.slider_value = 1
         self.checkbox.checked = False
+        self.acceleration_checkbox.checked = False
+        self.velocity_checkbox.checked = False
         self.pause_button.text = '<b>Pause</b>'
 
     def key_input(self, event):
@@ -53,7 +55,7 @@ class Controls:
             self.camera.move_right()
         elif event.key == 'left':
             self.camera.move_left()
-        elif event.key == '':
+        elif event.key == ' ':
             self.camera.back_to_initial_position()
         elif event.key == 'f':
             if self.camera.is_focused:

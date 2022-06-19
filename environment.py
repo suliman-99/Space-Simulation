@@ -120,6 +120,7 @@ class Environment:
             self.has_buttons = True
         for planet in self.planets_array:
             planet.render()
+        self.camera.save_state()
 
     def render_update(self, dt: float) -> None:
         if self.camera.is_focused:
