@@ -22,15 +22,10 @@ class Camera:
         self.environment.canvas.camera.pos = vector(self.x, self.y, self.z)
 
     def update(self):
-        x = self.planets_array[self.focus_on].pos.x
-        y = self.planets_array[self.focus_on].pos.y
-        z = self.planets_array[self.focus_on].pos.z
-        # self.environment.canvas.center = vector(x, y, z)
-        x_p = x
-        y_p = y
-        z_p = z + self.planets_array[self.focus_on].radius * 2
+        x_p = self.planets_array[self.focus_on].pos.x
+        y_p = self.planets_array[self.focus_on].pos.y
+        z_p = self.planets_array[self.focus_on].radius * 15
         self.environment.canvas.camera.pos = vector(x_p, y_p, z_p)
-        self.environment.canvas.camera.axis = vector(x, y, z)
 
     def focus_on_center(self):
         x = self.planets_array[self.focus_on].pos.x
@@ -43,6 +38,7 @@ class Camera:
         self.focus_on = self.focus_on + 1
         if self.focus_on == len(self.planets_array):
             self.focus_on = 0
+        self.update()
         # self.focus_on_center()
 
     def move_left(self):
@@ -50,6 +46,7 @@ class Camera:
         self.focus_on = self.focus_on - 1
         if self.focus_on < 0:
             self.focus_on = len(self.planets_array) - 1
+        self.update()
 
     def unfocus(self):
         self.is_focused = False

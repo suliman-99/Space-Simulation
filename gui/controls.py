@@ -55,9 +55,9 @@ class Controls:
             self.camera.move_right()
         elif event.key == 'left':
             self.camera.move_left()
-        elif event.key == ' ':
+        elif event.key == 'down':
             self.camera.back_to_initial_position()
-        elif event.key == 'f':
+        elif event.key == 'up':
             if self.camera.is_focused:
                 self.camera.unfocus()
             else:
@@ -94,10 +94,13 @@ class Controls:
         self.clear_trail = button(
             bind=self.clear_trails, text='<b>Clear trails</b>', color=color.purple)
         self.environment.canvas.append_to_caption(space)
-        self.checkbox = checkbox(bind=self.on_cheked, text='Show Trail', checked=False)
+        self.checkbox = checkbox(
+            bind=self.on_cheked, text='Show Trail', checked=False)
         self.environment.canvas.append_to_caption('\n\n')
         self.environment.canvas.append_to_caption(space * 2)
-        self.velocity_checkbox = checkbox(bind=self.show_velocity, text='show velocity', checked=True)
+        self.velocity_checkbox = checkbox(
+            bind=self.show_velocity, text='show velocity', checked=True)
         self.environment.canvas.append_to_caption(space * 2)
-        self.acceleration_checkbox = checkbox(bind=self.show_acceleration, text='show acceleration', checked=True)
+        self.acceleration_checkbox = checkbox(
+            bind=self.show_acceleration, text='show acceleration', checked=True)
         self.environment.canvas.bind('keydown', self.key_input)
