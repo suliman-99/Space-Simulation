@@ -1,14 +1,16 @@
 from __future__ import annotations
 
 from typing import List
+
+import camera
 from gui.controls import Controls
-from planet import *
 from physics import *
 from file import get_path
 
 
 class Environment:
     def __init__(self) -> None:
+        self.camera = None
         self.planets_array: List[Planet] = []
         self.time_scale = 1
         self.time_speed = 1
@@ -75,6 +77,7 @@ class Environment:
 
     def run(self) -> None:
         initilize_textures()
+        self.camera = camera.Camera(self)
         self.render()
         while self.is_active:
             rate(self.frame_rate)
@@ -92,13 +95,15 @@ class Environment:
 
     def render(self) -> None:
         if not self.has_buttons:
-            control_panel = Controls(self)
+            control_panel = Controls(self, self.camera)
             control_panel.render()
             self.has_buttons = True
         for planet in self.planets_array:
             planet.render()
 
     def render_update(self, dt: float) -> None:
+        if self.camera.is_focused:
+            self.camera.update()
         for planet in self.planets_array:
             planet.render_update(dt)
 

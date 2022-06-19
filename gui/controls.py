@@ -1,13 +1,20 @@
-from vpython import scene, button, slider, checkbox, color
+from vpython import button, slider, checkbox, color
 import resources.config
 from file import save_as
 
 
 class Controls:
-    def __init__(self, environment):
+    def __init__(self, environment, camera):
+        self.save_button = None
+        self.clear_trail = None
+        self.checkbox = None
+        self.restart_button = None
+        self.slider = None
         self.environment = environment
         self.pause_button = None
         self.slider_value = 1
+        self.focus_on = 0
+        self.camera = camera
 
     def on_changed(self, s):
         self.slider_value = s.value
@@ -38,6 +45,19 @@ class Controls:
         self.checkbox.checked = False
         self.pause_button.text = '<b>Pause</b>'
 
+    def key_input(self, event):
+        if event.key == 'right':
+            self.camera.move_right()
+        elif event.key == 'left':
+            self.camera.move_left()
+        elif event.key == '':
+            self.camera.back_to_initial_position()
+        elif event.key == 'f':
+            if self.camera.is_focused:
+                self.camera.unfocus()
+            else:
+                self.camera.focus()
+
     def render(self):
         space = '\t\t\t\t'
         self.environment.canvas.append_to_caption('\n\n  ')
@@ -53,5 +73,5 @@ class Controls:
         self.environment.canvas.append_to_caption(space)
         self.clear_trail = button(bind=self.clear_trails, text='<b>Clear trails</b>', color=color.purple)
         self.environment.canvas.append_to_caption(space)
-        self.checkbox = checkbox(
-            bind=self.on_cheked, text='Show Trail', checked=False)
+        self.checkbox = checkbox(bind=self.on_cheked, text='Show Trail', checked=False)
+        self.environment.canvas.bind('keydown', self.key_input)
