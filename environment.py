@@ -38,7 +38,7 @@ class Environment:
         inputpath = get_path(file)
         finput = open(inputpath, "r")
         planet_number = int(finput.readline())
-        self.time_scale = int(finput.readline())
+        self.time_scale = float(finput.readline())
         self.set_time_speed(1)
         for i in range(planet_number):
             mass = float(finput.readline())
