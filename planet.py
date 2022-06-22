@@ -18,47 +18,59 @@ class Planet:
         self.canvas = canvas
         self.texture = texture
         self.spin_hours = spin_hours
+        self.velocity_arrow = None
+        self.acceleration_arrow = None
 
     def render(self):
         self.render_object = sphere(canvas=self.canvas,
-                                    pos=self.pos.to_vpython_vector(), radius=self.radius, color=self.color,
+                                    radius=self.radius,
+                                    pos=self.pos.to_vpython_vector(),
+                                    color=self.color,
                                     texture=self.texture,
-                                    make_trail=False,
-                                    velocity=self.velocity.to_vpython_vector(),
-                                    acceleration=self.acceleration.to_vpython_vector()
-                                    )
-        self.velocity_arrow = self.add_arrow('velocity', color.green)
-        self.acceleration_arrow = self.add_arrow('acceleration', color.red)
+                                    make_trail=False)
+        self.velocity_arrow = arrow(color=color.green)
+        self.acceleration_arrow = arrow(color=color.red)
         if self.texture == './assets/textures/sun.jpg':
             self.shine()
-
-    def add_arrow(self, atterbute, color):
-        return attach_arrow(self.render_object, atterbute, scale=1,
-                            shaftwidth=0.2*self.radius, pos=self.render_object.pos, color=color)
-
-    def update_arrows_data(self):
-        v = self.velocity
-        v = v.scale_to(2*self.radius + v.length())
-        self.render_object.velocity = v.to_vpython_vector()
-
-        a = self.force / self.mass
-        a = a.scale_to(2*self.radius + a.length())
-        self.render_object.acceleration = a.to_vpython_vector()
 
     def shine(self):
         attach_light(self.render_object,
                      offset=vec(self.render_object.pos.x,
-                                self.render_object.pos.y, self.render_object.pos.z),
+                                self.render_object.pos.y,
+                                self.render_object.pos.z),
                      color=color.yellow)
 
-    def render_update(self, dt: float) -> None:
+    def update_arrows_data(self, time_scale):
+        self.velocity_arrow.pos = (
+            self.pos + self.velocity.scale_to(self.radius)).to_vpython_vector()
+        self.velocity_arrow.axis = self.velocity.to_vpython_vector() * time_scale * 3
+        if self.velocity.length() > 0.2 * self.radius:
+            v = 0.2 * self.radius
+        else:
+            v = 0.1 * self.velocity.length()
+
+        self.velocity_arrow.shaftwidth = v
+        self.velocity_arrow.headwidth = 2*v
+        self.velocity_arrow.headlength = 3*v
+
+        self.acceleration_arrow.pos = (
+            self.pos + self.acceleration.scale_to(self.radius)).to_vpython_vector()
+        self.acceleration_arrow.axis = self.acceleration.to_vpython_vector() * \
+            time_scale * 3
+        if self.acceleration.length() > 0.2 * self.radius:
+            v = 0.2 * self.radius
+        else:
+            v = 0.1 * self.acceleration.length()
+
+        self.acceleration_arrow.shaftwidth = v
+        self.acceleration_arrow.headwidth = 2*v
+        self.acceleration_arrow.headlength = 3*v
+
+    def render_update(self, dt: float, time_scale) -> None:
         self.render_object.pos = self.pos.to_vpython_vector()
         angle = dt / (self.spin_hours * 3600)
         self.render_object.rotate(axis=vector(0, 0, 1), angle=angle)
-        self.update_arrows_data()
-
-    def set_trail_state(self, value) -> None:
-        self.render_object.make_trail = value
+        self.update_arrows_data(time_scale)
 
     def reset_forces(self) -> None:
         self.force = Vector(0, 0, 0)
