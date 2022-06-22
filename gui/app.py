@@ -51,6 +51,6 @@ class TkinterApp:
             widget.destroy()
 
     def run_environment(self):
-        save_as(self.context.environment.planets_array, self.context.environment.time_scale, 'current_demo')
+        save_as(self.context.environment,'current_demo')
         self.context.app.destroy()
         self.context.environment.run()

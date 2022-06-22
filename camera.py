@@ -62,7 +62,6 @@ class Camera:
 
     def revers_focus_state(self):
         self.is_focused = not self.is_focused
-        print(self.is_focused)
 
     def revers_rotate_state(self):
         self.is_rotate = not self.is_rotate

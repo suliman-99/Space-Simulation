@@ -48,7 +48,6 @@ class PlanetNumberScreen(TkinterApp):
             planet_number = int(self.planet_number_entry.get())
             self.context.environment.time_scale = float(
                 self.time_scale_entry.get())
-            self.context.environment.set_time_speed(1)
         except ValueError:
             self.show_error()
             return

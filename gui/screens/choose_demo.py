@@ -56,7 +56,6 @@ class ChooseDemoScreen(TkinterApp):
 
     def run_demo(self, index):
         logging.debug(f'{index}')
-        mesure_time(self.context.environment.scan_from_file, file=index)
         self.run()
 
     def run(self):

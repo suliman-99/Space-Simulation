@@ -1,11 +1,10 @@
 import os
 import sys
 from typing import IO
-
-from vpython import color, vector
-
+from vpython import color
 from planet import Planet
 from resources.config import files
+from vector import Vector
 
 
 def get_path(file):
@@ -17,17 +16,50 @@ def get_path(file):
         fpath = file
     return fpath
 
+def scan_from_file(environment, file) -> None:
+    environment.planets_array.clear()
+    inputpath = get_path(file)
+    finput = open(inputpath, "r")
+    planet_number = int(finput.readline())
+    environment.time_scale = float(finput.readline())
+    for i in range(planet_number):
+        mass = float(finput.readline())
+        pos_x = float(finput.readline())
+        pos_y = float(finput.readline())
+        pos_z = float(finput.readline())
+        pos = Vector(pos_x, pos_y, pos_z)
+        radius = float(finput.readline())
+        v_x = float(finput.readline())
+        v_y = float(finput.readline())
+        v_z = float(finput.readline())
+        velocity = Vector(v_x, v_y, v_z)
+        color_x = float(finput.readline())
+        color_y = float(finput.readline())
+        color_z = float(finput.readline())
+        flexibility = float(finput.readline())
+        spin_hours = float(finput.readline())
+        texture = finput.readline()
+        if texture == 'None\n':
+            texture = None
+        c = color.white
+        c.x = color_x
+        c.y = color_y
+        c.z = color_z
+        environment.planets_array.append(
+            Planet(mass, radius, pos, velocity, c, flexibility, spin_hours, texture, environment.canvas))
+    finput.close()
 
-def save_as(planets_array: list[Planet], time_scale: int, filename: str):
+
+def save_as(environment, filename: str):
     file = open(f'./demos/{filename}.txt', 'w')
-    save_on_file(planets_array, file, time_scale)
+    save_on_file(environment, file)
 
 
-def save_on_file(planets_array: list[Planet], output_file: IO, time_scale: int):
-    planet_number = planets_array.__len__()
+def save_on_file(environment, output_file: IO) -> None:
+    planet_number = environment.planets_array.__len__()
     output_file.write(f"{planet_number}\n")
-    output_file.write(f"{time_scale}\n")
-    for planet in planets_array:
+    output_file.write(f"{environment.time_scale}\n")
+    for planet in environment.planets_array:
         output_file.write(f"{planet.mass}\n")
         output_file.write(f"{planet.pos.x}\n")
         output_file.write(f"{planet.pos.y}\n")

@@ -1,4 +1,4 @@
-from file import save_as
+from file import *
 from gui.app import AppContext, TkinterApp
 from gui.screens.choose_demo import ChooseDemoScreen
 from tkinter import CENTER, Button, filedialog, messagebox
@@ -34,7 +34,7 @@ class HomeScreen(TkinterApp):
     def read_demo(self):
         self.filename = filedialog.askopenfilename(
             filetypes=(("Text Files", "*.txt"),), initialdir='./demos')
-        self.context.environment.scan_from_file(self.filename)
+        scan_from_file(self.context.environment,self.filename)
         if self.filename is not None:
             self.pop()
             RunDemoScreen(self.context)

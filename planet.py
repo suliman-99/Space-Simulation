@@ -21,6 +21,13 @@ class Planet:
         self.velocity_arrow = None
         self.acceleration_arrow = None
 
+    def shine(self):
+        attach_light(self.render_object,
+                     offset=vec(self.render_object.pos.x,
+                                self.render_object.pos.y,
+                                self.render_object.pos.z),
+                     color=color.yellow)
+
     def render(self):
         self.render_object = sphere(canvas=self.canvas,
                                     radius=self.radius,
@@ -32,13 +39,6 @@ class Planet:
         self.acceleration_arrow = arrow(color=color.red)
         if self.texture == './assets/textures/sun.jpg':
             self.shine()
-
-    def shine(self):
-        attach_light(self.render_object,
-                     offset=vec(self.render_object.pos.x,
-                                self.render_object.pos.y,
-                                self.render_object.pos.z),
-                     color=color.yellow)
 
     def update_arrows_data(self, time_scale):
         self.velocity_arrow.pos = (

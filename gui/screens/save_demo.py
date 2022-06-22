@@ -35,7 +35,7 @@ class SaveDemoScreen(TkinterApp):
 
     def save(self):
         output_file = filedialog.asksaveasfile(filetypes=(("Text Files", "*.txt"),), initialdir='./demos')
-        save_on_file(self.context.environment.planets_array, output_file, self.context.environment.time_scale)
+        save_on_file(self.context.environment, output_file)
         messagebox.showinfo("SUCCESS", "Simulation saved successfuly")
 
     def run(self):
