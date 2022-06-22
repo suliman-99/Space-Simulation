@@ -3,7 +3,7 @@ from pygame import mixer
 
 def play_sountrack():
     mixer.init()
-    mixer.music.load('./assets/sound/soundtrack.mp3')
+    mixer.music.load('./assets/sound/s3.mp3')
     mixer.music.play(loops=-1)
 
 
