@@ -2,9 +2,8 @@ import sys
 import tkinter
 from environment import Environment
 from tkinter import Label, PhotoImage, Widget
-
 from file import save_as
-from resources.sound import play_sountrack
+from resources.sound import *
 
 
 class AppContext:
@@ -30,7 +29,7 @@ class TkinterApp:
         background = Label(self.context.app, image=image,
                            width=2000, height=1100)
         background.place(x=0, y=0)
-
+        mixer_init()
         play_sountrack()
         home(self.context)
 

@@ -1,7 +1,7 @@
 import os
 import sys
 from typing import IO
-from vpython import color
+from vpython import color , vector
 from planet import Planet
 from resources.config import files
 from vector import Vector
@@ -41,10 +41,7 @@ def scan_from_file(environment, file) -> None:
         texture = finput.readline()
         if texture == 'None\n':
             texture = None
-        c = color.white
-        c.x = color_x
-        c.y = color_y
-        c.z = color_z
+        c = vector(color_x, color_y, color_z)
         environment.planets_array.append(
             Planet(mass, radius, pos, velocity, c, flexibility, spin_hours, texture, environment.canvas))
     finput.close()

@@ -4,6 +4,7 @@ import camera
 from gui.controls import Controls
 from physics import *
 from file import *
+from resources.sound import *
 
 
 class Environment:
@@ -106,6 +107,9 @@ class Environment:
         if control.have_to_revers_rotate_state:
             self.camera.revers_rotate_state()
             control.have_to_revers_rotate_state = False
+        if control.have_to_mute:
+            mute()
+            control.have_to_mute = False
 
     def collision(self) -> None:
         for i in range(self.planets_array.__len__() - 1):

@@ -28,6 +28,7 @@ class Controls:
         self.have_to_back_to_initial_state = False
         self.have_to_revers_focus_state = False
         self.have_to_revers_rotate_state = False
+        self.have_to_mute = False
 
     def slider_on_changed(self, s):
         self.slider_value = s.value
@@ -68,6 +69,8 @@ class Controls:
             self.have_to_revers_focus_state = True
         elif event.key == 'r':
             self.have_to_revers_rotate_state = True
+        elif event.key == 'q':
+            self.have_to_mute = True
 
     def render(self):
         space = ' '*20
