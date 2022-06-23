@@ -1,5 +1,6 @@
 from vector import *
 from planet import Planet
+from resources.sound import play_sountrack_collision
 
 g = 6.6743 * (10 ** -11)
 
@@ -13,6 +14,7 @@ def apply_gravity(planet1: Planet, planet2: Planet) -> None:
 
 def collision(planet1: Planet, planet2: Planet) -> None:
     if (planet1.pos - planet2.pos).length() <= planet1.radius + planet2.radius:
+        play_sountrack_collision()
         collision_correction(planet1, planet2)
         collision_resolution(planet1, planet2)
 
