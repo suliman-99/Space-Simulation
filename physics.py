@@ -14,7 +14,7 @@ def apply_gravity(planet1: Planet, planet2: Planet) -> None:
 
 def collision(planet1: Planet, planet2: Planet) -> None:
     if (planet1.pos - planet2.pos).length() <= planet1.radius + planet2.radius:
-        play_sountrack_collision()
+        # play_sountrack_collision()
         collision_correction(planet1, planet2)
         collision_resolution(planet1, planet2)
 

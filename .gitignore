@@ -2,5 +2,3 @@ test.py
 __pycache__
 .vscode
 .idea
-Pipfile
-Pipfile.lock
