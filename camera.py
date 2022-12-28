@@ -61,7 +61,8 @@ class Camera:
         self.is_focused = True
 
     def revers_focus_state(self):
-        self.is_focused = not self.is_focused
+        if self.have_initial_state:
+            self.is_focused = not self.is_focused
 
     def revers_rotate_state(self):
         self.is_rotate = not self.is_rotate
