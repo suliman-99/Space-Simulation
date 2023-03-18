@@ -1,5 +1,5 @@
 # Space-Simulation
-this is a python program to simulate planets interactions
+this is a Python program to simulate planets interactions
 
 you can enter the planets data and the program will show you the expected scenario
 
