@@ -37,7 +37,15 @@ F : Total Force applied on it
 
 a: the acceleration of it
 
-We Use this Fomula to calculate the acceleration of the planets depending on the total force applied on them
+We Use this Fomula to calculate the acceleration of each planet depending on the total force applied on it
+
+after that we can calculate the new velocity (speed vector) depending on the current velocity and the acceleration
+
+after that we can calculate the new position (x, y, z) depending on the current position and the velocity
+
+then we can re-render the object in the new place
+
+we can do that a lot of time in the same seconde (more that 10 time) and we will have a good visualization
  
 -------------------------------------------
 
