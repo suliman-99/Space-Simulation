@@ -1,8 +1,8 @@
 from cmath import pi
 from math import cos, sin
 from vpython import *
-from planet import Planet
 from typing import List
+from core.planet import Planet
 
 
 class Camera:

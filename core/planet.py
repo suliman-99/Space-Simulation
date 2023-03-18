@@ -1,5 +1,5 @@
 from __future__ import annotations
-from vector import *
+from core.vector import *
 
 
 class Planet:

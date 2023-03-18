@@ -1,10 +1,10 @@
 from __future__ import annotations
 from typing import List
-import camera
-from gui.controls import Controls
-from physics import *
-from file import *
 from resources.sound import *
+from gui.controls import Controls
+from core.physics import *
+from core.file import *
+import core.camera as cam
 
 
 class Environment:
@@ -15,7 +15,7 @@ class Environment:
         self.frame_rate = 30
         self.calc_num = 30
         self.canvas = canvas(width=1300, height=550)
-        self.camera = camera.Camera(self.canvas, self.planets_array)
+        self.camera = cam.Camera(self.canvas, self.planets_array)
         self.control = Controls(self.canvas)
         self.first_render = True
         self.have_to_refresh = False

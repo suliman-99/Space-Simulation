@@ -1,10 +1,10 @@
 import os
 import sys
 from typing import IO
-from vpython import color , vector
-from planet import Planet
+from vpython import vector
 from resources.config import files
-from vector import Vector
+from core.planet import Planet
+from core.vector import Vector
 
 
 def get_path(file):

@@ -1,6 +1,6 @@
-from vector import *
-from planet import Planet
 from resources.sound import play_sountrack_collision
+from core.planet import Planet
+from core.vector import *
 
 g = 6.6743 * (10 ** -11)
 

@@ -1,14 +1,12 @@
 import random
 from tkinter import Entry, Label, CENTER, Button, messagebox, filedialog
-
 from vpython import color
-
-from file import get_relative_path
+from resources.config import object_colors, button_colors, FLEXIBILITY
 from gui.app import TkinterApp, AppContext
 from gui.screens.save_demo import SaveDemoScreen
-from planet import Planet
-from resources.config import object_colors, button_colors, FLEXIBILITY
-from vector import Vector
+from core.file import get_relative_path
+from core.planet import Planet
+from core.vector import Vector
 
 
 class PlanetInfoScreen(TkinterApp):

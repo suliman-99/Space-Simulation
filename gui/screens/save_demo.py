@@ -1,7 +1,6 @@
 from tkinter import Button, CENTER, messagebox, filedialog
-
-from file import save_on_file
 from gui.app import TkinterApp, AppContext
+from core.file import save_on_file
 
 
 class SaveDemoScreen(TkinterApp):

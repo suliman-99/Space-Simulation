@@ -1,9 +1,9 @@
 import sys
 import tkinter
-from environment import Environment
 from tkinter import Label, PhotoImage, Widget
-from file import save_as
 from resources.sound import *
+from core.environment import Environment
+from core.file import save_as
 
 
 class AppContext:

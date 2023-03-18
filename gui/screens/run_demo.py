@@ -1,5 +1,4 @@
 from tkinter import Button, CENTER
-
 from gui.app import TkinterApp, AppContext
 
 

@@ -1,5 +1,4 @@
 from __future__ import annotations
-
 import string
 from numpy import *
 from vpython import *

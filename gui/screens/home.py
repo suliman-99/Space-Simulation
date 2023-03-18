@@ -1,10 +1,9 @@
-from file import *
+from tkinter import CENTER, Button, filedialog, messagebox
 from gui.app import AppContext, TkinterApp
 from gui.screens.choose_demo import ChooseDemoScreen
-from tkinter import CENTER, Button, filedialog, messagebox
-
 from gui.screens.planet_number import PlanetNumberScreen
 from gui.screens.run_demo import RunDemoScreen
+from core.file import *
 
 
 class HomeScreen(TkinterApp):

@@ -1,7 +1,6 @@
 import logging
 from tkinter import CENTER, Button
 from gui.app import TkinterApp, AppContext
-
 from testing.debug import mesure_time
 
 
