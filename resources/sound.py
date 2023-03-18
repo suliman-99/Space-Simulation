@@ -10,7 +10,7 @@ def mixer_init():
 
 
 def play_sountrack():
-    mixer.Channel(0).play(mixer.Sound(('./assets/sound/s3.mp3')), -1)
+    mixer.Channel(0).play(mixer.Sound(('./assets/sound/music.mp3')), -1)
 
 
 def play_sountrack_collision():
@@ -19,7 +19,7 @@ def play_sountrack_collision():
         mixer.Channel(channel_idx % channel_number+1).pause()
     mixer.Channel(channel_idx % channel_number+1).set_volume(50)
     mixer.Channel(channel_idx % channel_number +
-                  1).play(mixer.Sound(('./assets/sound/collision 1.mp3')))
+                  1).play(mixer.Sound(('./assets/sound/collision.mp3')))
     channel_idx += 1
 
 

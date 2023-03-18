@@ -25,7 +25,7 @@ class TkinterApp:
     def __init__(self, home):
         self.context = AppContext()
 
-        image = PhotoImage(file='./assets/image/background2.png')
+        image = PhotoImage(file='./assets/image/background.png')
         background = Label(self.context.app, image=image,
                            width=2000, height=1100)
         background.place(x=0, y=0)
