@@ -61,7 +61,6 @@
 - [Contributing](#contributing)
 - [Contact](#contact)
 - [Teammates](#teammates)
-- [Acknowledgments](#acknowledgments)
 - [License](#license)
 
 
